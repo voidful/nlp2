@@ -1,6 +1,6 @@
 import re
 
-punctuations = r"[ ．﹑︰〈〉─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&\'()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
+punctuations = r"[．﹑︰〈〉 ─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
 
 
 def lines_into_sentence(lines):
@@ -21,9 +21,7 @@ def split_sentence_to_ngram(sentence):
     for i in range(len(path)):
         for j in range(1, len(path) + 1):
             if i + j <= len(path):
-                ngrams.append(
-                    ''.join(
-                        [subPath for subPath in path[i:i + j]]).strip())
+                ngrams.append(join_array_to_sentence([subPath for subPath in path[i:i + j]]))
     return ngrams
 
 
@@ -35,9 +33,8 @@ def split_sentence_to_ngram_inpart(sentence):
         part = []
         for j in range(1, len(path) + 1):
             if i + j <= len(path):
-                part.append(
-                    ''.join(
-                        [subPath for subPath in path[i:i + j]]).strip())
+                part.append(join_array_to_sentence([subPath for subPath in path[i:i + j]]))
+
         ngrams.append(part)
     return ngrams
 
@@ -62,8 +59,7 @@ def spilt_sentence_to_array(sentence):
 
 
 def join_array_to_sentence(array):
-    # return ''.join([subPath + (' ' if isAllEnglish(str(subPath)) else '') for subPath in array]).strip()
-    return ''.join([subPath for subPath in array]).strip()
+    return ''.join([subPath + (' ' if is_all_english(str(subPath)) else '') for subPath in array]).strip()
 
 
 def is_all_english(s):

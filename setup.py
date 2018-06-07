@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='nlp2',
-    version='1.0.0',
+    version='1.0.1',
     description='Tool for NLP - handle file and text',
     long_description=long_description,
 
