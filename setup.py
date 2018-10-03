@@ -10,9 +10,10 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='nlp2',
-    version='1.0.1',
+    version='1.0.5',
     description='Tool for NLP - handle file and text',
     long_description=long_description,
+    long_description_content_type='text/markdown',
 
     url='https://github.com/voidful/nlp2',
     author='Eric Lam',
