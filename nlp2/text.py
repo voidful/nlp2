@@ -62,15 +62,17 @@ def join_words_array_to_sentence(array):
     return ''.join([subPath + (' ' if is_all_english(str(array)) else '') for subPath in array]).strip()
 
 
-def passage_into_chunk(passage, chunk_size):
-    lines = (i.strip() for i in passage.splitlines())
+def passage_into_chunk(text, length):
+    lines = (i.strip() for i in text.splitlines())
     result = []
-    chunkstring = ''
+    chunk = ''
     for line in lines:
-        chunkstring += (line + "\n")
-        if len(chunkstring) > chunk_size:
-            result.append(chunkstring)
-            chunkstring = ''
+        chunk += (line + " ")
+        if len(chunk) > length:
+            result.append(chunk)
+            chunk = ''
+    if len(chunk) > 0:
+        result.append(chunk)
     return result
 
 

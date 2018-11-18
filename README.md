@@ -363,7 +363,7 @@ half2full("，,")
 
 <h2 id="random">Random  Utility</h2>    
 
-## random_string(length)
+###  random_string(length)
 Arguments  
 - `length(int)` : length with random string
 
