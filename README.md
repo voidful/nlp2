@@ -248,10 +248,11 @@ spilt_text_in_all_ways("加州旅館")
 ['加 州 旅 館', '加 州 旅館', '加 州旅 館', '加 州旅館', '加州 旅館', '加州旅 館', '加州旅館']
 ```
 
-### spilt_sentence_to_array(sentence)
+### spilt_sentence_to_array(sentence,splitText=False)
 use to split sentences in different kind of language
 Arguments
 - `sentence(String)` : input sentence
+- `splitText(boolean,optional)` : split Chinese in char
 
 Returns
 - `segment array(String Array)` : word array
@@ -260,6 +261,10 @@ Returns
 spilt_sentence_to_array('你好 are  u 可以')
 
 ['你好', 'are', 'u', '可以']
+
+spilt_sentence_to_array('你好 are  u 可以',True)
+
+['你', '好', 'are', 'u', '可', '以']
 ```
 
 ###  join_words_array_to_sentence(words_array):

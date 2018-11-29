@@ -52,8 +52,11 @@ def spilt_text_in_all_ways(sentence):
     return result
 
 
-def spilt_sentence_to_array(sentence):
-    regex = r"[\u4e00-\ufaff]+|[0-9]+|[a-zA-Z]+\'*[a-z]*"
+def spilt_sentence_to_array(sentence, splitText=False):
+    if splitText:
+        regex = r"[\u4e00-\ufaff]|[0-9]+|[a-zA-Z]+\'*[a-z]*"
+    else:
+        regex = r"[\u4e00-\ufaff]+|[0-9]+|[a-zA-Z]+\'*[a-z]*"
     path = re.findall(regex, sentence, re.UNICODE)
     return path
 
