@@ -16,7 +16,7 @@ def lines_into_sentences(lines):
 
 def split_sentence_to_ngram(sentence):
     ngrams = []
-    regex = r"[\u4e00-\ufaff]|[0-9]+|[a-zA-Z]+\'*[a-z]*"
+    regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
     for i in range(len(path)):
         for j in range(1, len(path) + 1):
@@ -27,7 +27,7 @@ def split_sentence_to_ngram(sentence):
 
 def split_sentence_to_ngram_in_part(sentence):
     ngrams = []
-    regex = r"[\u4e00-\ufaff]|[0-9]+|[a-zA-Z]+\'*[a-z]*"
+    regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
     for i in range(len(path)):
         part = []
@@ -54,9 +54,9 @@ def spilt_text_in_all_ways(sentence):
 
 def spilt_sentence_to_array(sentence, splitText=False):
     if splitText:
-        regex = r"[\u4e00-\ufaff]|[0-9]+|[a-zA-Z]+\'*[a-z]*"
+        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     else:
-        regex = r"[\u4e00-\ufaff]+|[0-9]+|[a-zA-Z]+\'*[a-z]*"
+        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]+"
     path = re.findall(regex, sentence, re.UNICODE)
     return path
 

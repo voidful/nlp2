@@ -198,7 +198,7 @@ Examples
 y = lines_into_sentences(["你好啊.hello，me"]))
 print(y)
 
-['你好啊', '千萬別', 'one']
+['你好啊', 'hello', 'me']
 ```
 
 ### split_sentence_to_ngram(sentence)
