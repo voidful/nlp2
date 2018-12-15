@@ -195,7 +195,7 @@ Returns
 - `sentences(String Array)` : split all line base on punctuations  
 Examples  
 ```
-y = lines_into_sentences(["你好啊.hello，me"]))
+y = passage_into_sentences(["你好啊.hello，me"]))
 print(y)
 
 ['你好啊', 'hello', 'me']

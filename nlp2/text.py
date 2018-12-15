@@ -3,7 +3,7 @@ import re
 punctuations = r"[．﹑︰〈〉 ─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
 
 
-def lines_into_sentences(lines):
+def passage_into_sentences(lines):
     sentences = []
     for line in lines:
         line = full2half(line.strip())
