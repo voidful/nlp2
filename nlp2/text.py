@@ -62,7 +62,9 @@ def spilt_sentence_to_array(sentence, splitText=False):
 
 
 def list_in_windows(list, windows):
-    return [thelist[x:x + windows] for x in range(len(list) - windows + 1)]
+    if windows > len(list):
+        windows = len(list)
+    return [list[x:x + windows] for x in range(len(list) - windows + 1)]
 
 
 def join_words_array_to_sentence(array):
