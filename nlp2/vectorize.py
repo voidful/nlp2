@@ -1,7 +1,7 @@
 from numpy import dot
 from numpy.linalg import norm
 import numpy as np
-from text import *
+from .text import *
 
 
 def doc2vec_aver(pretrained_emb, emb_size, context):
