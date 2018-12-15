@@ -12,7 +12,7 @@ def doc2vec_aver(pretrained_emb, emb_size, context):
             docvec = np.add(docvec, pretrained_emb[char])
         except Exception as e:
             pass
-    docvec = np.divide(docvec, np.full(self._vec_size, count))
+    docvec = np.divide(docvec, np.full(emb_size, count))
     return docvec.tolist()
 
 
