@@ -61,6 +61,10 @@ def spilt_sentence_to_array(sentence, splitText=False):
     return path
 
 
+def list_in_windows(list, windows):
+    return [thelist[x:x + windows] for x in range(len(list) - windows + 1)]
+
+
 def join_words_array_to_sentence(array):
     return ''.join([subPath + (' ' if is_all_english(str(array)) else '') for subPath in array]).strip()
 
