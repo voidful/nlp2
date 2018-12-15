@@ -43,3 +43,8 @@ def doc2vec_hier(pretrained_emb, emb_size, context, windows):
             pass
     docvec = np.amax(arr_list, axis=0)
     return docvec.tolist()
+
+
+def cosine_similarity(array1, array2):
+    cos_sim = dot(array1, array2) / (norm(array1) * norm(array2))
+    return cos_sim
