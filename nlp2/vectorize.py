@@ -45,6 +45,6 @@ def doc2vec_hier(pretrained_emb, emb_size, context, windows):
     return docvec.tolist()
 
 
-def cosine_similarity(array1, array2):
-    cos_sim = dot(array1, array2) / (norm(array1) * norm(array2))
+def cosine_similarity(vector1, vector2):
+    cos_sim = dot(vector1, vector2) / (norm(vector1) * norm(vector2))
     return cos_sim

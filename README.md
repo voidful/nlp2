@@ -19,9 +19,10 @@ from nlp2 import *
 
 
 # Features
-*   [File Handling](#file)
-*   [Text cleaning/parsing](#text)
-*   [Random  Utility](#random)
+*   [File Handling](#file)  
+*   [Text cleaning/parsing](#text)  
+*   [Random  Utility](#random)  
+*   [Vectorize](#vectorize)  
 
 <h2 id="file">File Handling</h2>    
 
@@ -365,6 +366,100 @@ half2full("，,")
 
 ，，
 ```
+<h2 id="vectorize">Vectorize</h2>   
+Vectorize implemented following paper ：  
+Baseline Needs More Love:On Simple Word-Embedding-Based Models and Associated Pooling Mechanisms  
+###  doc2vec_aver(pretrained_emb, emb_size, context)  
+average pooling  
+Arguments  
+- `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``  
+- `emb_size(int)` : size of pre-trained word embedding   
+- `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]`` 
+
+Returns  
+- `document vector(list)` : vectorized context
+Examples  
+```python 
+from gensim.models import Word2Vec
+pretrain_wordvec = gensim.models.KeyedVectors.load_word2vec_format('wiki.vec', encoding='utf-8')
+size = pretrain_wordvec.vector_size
+context = "測試文本哈哈哈"
+nlp2.doc2vec_aver(pretrain_wordvec, size, jieba.lcut(context))
+```
+
+###  doc2vec_max(pretrained_emb, emb_size, context)
+max pooling in each dim  
+Arguments  
+- `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``  
+- `emb_size(int)` : size of pre-trained word embedding   
+- `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]`` 
+
+Returns  
+- `document vector(list)` : vectorized context
+Examples  
+```python 
+from gensim.models import Word2Vec
+pretrain_wordvec = gensim.models.KeyedVectors.load_word2vec_format('wiki.vec', encoding='utf-8')
+size = pretrain_wordvec.vector_size
+context = "測試文本哈哈哈"
+nlp2.doc2vec_max(pretrain_wordvec, size, jieba.lcut(context))
+```
+
+###  doc2vec_concat(pretrained_emb, emb_size, context)
+concat average pooling and max pooling result  
+Arguments  
+- `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``  
+- `emb_size(int)` : size of pre-trained word embedding   
+- `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]`` 
+
+Returns  
+- `document vector(list)` : vectorized context
+Examples  
+```python 
+from gensim.models import Word2Vec
+pretrain_wordvec = gensim.models.KeyedVectors.load_word2vec_format('wiki.vec', encoding='utf-8')
+size = pretrain_wordvec.vector_size
+context = "測試文本哈哈哈"
+nlp2.doc2vec_concat(pretrain_wordvec, size, jieba.lcut(context))
+```
+
+###  doc2vec_hier(pretrained_emb, emb_size, context, windows)
+average pooling in sliding windows then max pooling   
+Arguments  
+- `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``  
+- `emb_size(int)` : size of pre-trained word embedding    
+- `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]``   
+- `windows(int)` : size of sliding windows in array   
+
+Returns  
+- `document vector(list)` : vectorized context
+Examples  
+```python 
+from gensim.models import Word2Vec
+pretrain_wordvec = gensim.models.KeyedVectors.load_word2vec_format('wiki.vec', encoding='utf-8')
+size = pretrain_wordvec.vector_size
+context = "測試文本哈哈哈"
+nlp2.doc2vec_hier(pretrain_wordvec, size, jieba.lcut(context))
+```
+
+###  cosine_similarity(vector 1, vector 2)
+cal cosine similarity between two vector
+Arguments  
+- `vector(list)` : vector
+
+Returns  
+- `cos similarity(float)` : similarity of two vector
+Examples  
+```
+from gensim.models import Word2Vec
+pretrain_wordvec = gensim.models.KeyedVectors.load_word2vec_format('wiki.vec', encoding='utf-8')
+size = pretrain_wordvec.vector_size
+
+input1 = nlp2.doc2vec_concat(pretrain_wordvec, size, "DC")
+input2 = nlp2.doc2vec_concat(pretrain_wordvec, size, "漫威")
+nlp2.cosine_similarity(input1,input2)
+```
+
 
 <h2 id="random">Random  Utility</h2>    
 
