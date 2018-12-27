@@ -368,17 +368,17 @@ half2full("，,")
 ```
 <h2 id="vectorize">Vectorize</h2>   
 Vectorize implemented following paper ：  
-Baseline Needs More Love:On Simple Word-Embedding-Based Models and Associated Pooling Mechanisms  
-###  doc2vec_aver(pretrained_emb, emb_size, context)  
-average pooling  
-Arguments  
-- `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``  
-- `emb_size(int)` : size of pre-trained word embedding   
-- `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]`` 
+Baseline Needs More Love:On Simple Word-Embedding-Based Models and Associated Pooling Mechanisms    
+###  doc2vec_aver(pretrained_emb, emb_size, context)     
+average pooling    
+Arguments    
+- `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``   
+- `emb_size(int)` : size of pre-trained word embedding     
+- `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]``   
 
-Returns  
-- `document vector(list)` : vectorized context
-Examples  
+Returns    
+- `document vector(list)` : vectorized context  
+Examples    
 ```python 
 from gensim.models import Word2Vec
 pretrain_wordvec = gensim.models.KeyedVectors.load_word2vec_format('wiki.vec', encoding='utf-8')
@@ -387,9 +387,9 @@ context = "測試文本哈哈哈"
 nlp2.doc2vec_aver(pretrain_wordvec, size, jieba.lcut(context))
 ```
 
-###  doc2vec_max(pretrained_emb, emb_size, context)
-max pooling in each dim  
-Arguments  
+###  doc2vec_max(pretrained_emb, emb_size, context)  
+max pooling in each dim   
+Arguments   
 - `pretrained_emb(object)` : pre-trained word embedding that able to get vector in this form : ``pretrained_emb['word']``  
 - `emb_size(int)` : size of pre-trained word embedding   
 - `context(list)` : input doc in list - each item of list must able to gain vector in pretrained_emb like : ``pretrained_emb[context[0]]`` 
