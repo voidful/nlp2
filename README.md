@@ -367,8 +367,10 @@ half2full("，,")
 ，，
 ```
 <h2 id="vectorize">Vectorize</h2>   
+
 Vectorize implemented following paper ：  
 Baseline Needs More Love:On Simple Word-Embedding-Based Models and Associated Pooling Mechanisms    
+
 ###  doc2vec_aver(pretrained_emb, emb_size, context)     
 average pooling    
 Arguments    
@@ -378,6 +380,7 @@ Arguments
 
 Returns    
 - `document vector(list)` : vectorized context  
+
 Examples    
 ```python 
 from gensim.models import Word2Vec
