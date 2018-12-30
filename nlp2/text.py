@@ -1,9 +1,19 @@
 import re
 
 punctuations = r"[．﹑︰〈〉 ─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
+httplink = r"http[:\/0-9a-zA-Z.]*"
 
 
-def passage_into_sentences(lines):
+def remove_httplink(string):
+    result = ""
+    for sentence in filter(None, re.split(httplink, string)):
+        sentence = sentence.strip()
+        if len(sentence) > 0:
+            result += " " + sentence
+    return result
+
+
+def split_lines_by_punc(lines):
     sentences = []
     for line in lines:
         line = full2half(line.strip())

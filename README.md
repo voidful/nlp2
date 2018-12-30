@@ -184,9 +184,25 @@ print(i)
 false
 ```
 
-<h2 id="text">Text cleaning/parsing</h2>   
+<h2 id="text">Text cleaning/parsing</h2>
+   
+### remove_httplink(string)  
+remove http link in context  
+Arguments  
+- `string(String)` : a string may contain http link   
 
-### passage_into_sentences(lines)
+Returns  
+- `result(String)` : string without any http link 
+
+Examples  
+```
+y = remove_httplink("http://news.IN1802020028.htm 今天天氣http://news.we028.晴朗"))
+print(y)
+
+今天天氣 晴朗
+```
+
+### split_lines_by_punc(lines)
 make lines in array form into sentences array  
 it split line base on any punctuation  
 Arguments  
@@ -196,7 +212,7 @@ Returns
 - `sentences(String Array)` : split all line base on punctuations  
 Examples  
 ```
-y = passage_into_sentences(["你好啊.hello，me"]))
+y = split_lines_by_punc(["你好啊.hello，me"]))
 print(y)
 
 ['你好啊', 'hello', 'me']
