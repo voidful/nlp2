@@ -184,6 +184,20 @@ print(i)
 false
 ```
 
+### download_file(url,save_dir)  
+Arguments  
+- `url;(String)` : download link  
+- `save_dir;(String)` : save location    
+Returns  
+- `result(string)` : file downloaded location  
+Examples  
+```
+i = download_file('https://raw.githubusercontent.com/voidful/voidful_blog/master/assets/post_src/nninmath_3/img1','./data/')
+print(i)
+
+./data/img1
+```
+
 <h2 id="text">Text cleaning/parsing</h2>
    
 ### remove_httplink(string)  

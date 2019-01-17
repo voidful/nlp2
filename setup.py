@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='nlp2',
-    version='1.2.0',
+    version='1.2.5',
     description='Tool for NLP - handle file and text',
     long_description="Github : https://github.com/voidful/nlp2",
     url='https://github.com/voidful/nlp2',

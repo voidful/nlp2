@@ -1,4 +1,4 @@
 from .file import *
-from .random import *
+from .rand import *
 from .text import *
 from .vectorize import *

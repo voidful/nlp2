@@ -1,5 +1,7 @@
 import json
 import os
+import sys
+import urllib.request
 
 
 def get_folders_form_dir(root, match=""):
@@ -71,3 +73,20 @@ def is_file_exist(file_loc):
 
 def is_dir_exist(file_dir):
     return os.path.isdir(file_dir)
+
+
+def _progress(block_num, block_size, total_size):
+    sys.stdout.write('\r>> Downloading %.1f%%' % (float(block_num * block_size) / float(total_size) * 100.0))
+    sys.stdout.flush()
+
+
+def download_file(url, outdir):
+    outdir = get_dir_with_notexist_create(outdir)
+    outfile = url.split('/')[-1]
+    if not is_file_exist(outdir + outfile):
+        try:
+            urllib.request.urlretrieve(url, outdir + outfile, _progress)
+        except:
+            return "File not found"
+
+    return outdir + outfile

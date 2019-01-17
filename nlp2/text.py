@@ -10,6 +10,7 @@ def remove_httplink(string):
         sentence = sentence.strip()
         if len(sentence) > 0:
             result += " " + sentence
+    print(result)
     return result
 
 

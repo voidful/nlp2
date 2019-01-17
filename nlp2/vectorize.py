@@ -1,18 +1,15 @@
-from numpy import dot
-from numpy.linalg import norm
-import numpy as np
 from .text import *
 
 
 def doc2vec_aver(pretrained_emb, emb_size, context):
-    docvec = np.zeros(emb_size)
+    docvec = [0] * emb_size
     count = len(context)
     for char in context:
         try:
-            docvec = np.add(docvec, pretrained_emb[char])
+            docvec = map(sum, zip(docvec, pretrained_emb[char]))
         except Exception as e:
             pass
-    docvec = np.divide(docvec, np.full(emb_size, count))
+    docvec = map(lambda x: x / count, zip(docvec, pretrained_emb[char]))
     return docvec.tolist()
 
 
@@ -23,14 +20,14 @@ def doc2vec_max(pretrained_emb, emb_size, context):
             arr_list.append(pretrained_emb[char])
         except Exception as e:
             pass
-    docvec = np.amax(arr_list, axis=0)
+    docvec = [max(row) for row in arr_list]
     return docvec.tolist()
 
 
 def doc2vec_concat(pretrained_emb, emb_size, context):
-    docvec = np.zeros(emb_size)
-    docvec = np.add(docvec, doc2vec_aver(pretrained_emb, emb_size, context))
-    docvec = np.add(docvec, doc2vec_max(pretrained_emb, emb_size, context))
+    docvec = [0] * emb_size
+    docvec = map(sum, zip(docvec, doc2vec_aver(pretrained_emb, emb_size, context)))
+    docvec = map(sum, zip(docvec, doc2vec_max(pretrained_emb, emb_size, context)))
     return docvec.tolist()
 
 
@@ -41,10 +38,13 @@ def doc2vec_hier(pretrained_emb, emb_size, context, windows):
             arr_list.append(doc2vec_aver(pretrained_emb, emb_size, list))
         except Exception as e:
             pass
-    docvec = np.amax(arr_list, axis=0)
+    docvec = [max(row) for row in arr_list]
     return docvec.tolist()
 
 
+def dot(A, B):
+    return sum(a * b for a, b in zip(A, B))
+
+
 def cosine_similarity(vector1, vector2):
-    cos_sim = dot(vector1, vector2) / (norm(vector1) * norm(vector2))
-    return cos_sim
+    return dot(vector1, vector2) / ((dot(vector1, vector1) ** .5) * (dot(vector2, vector2) ** .5))

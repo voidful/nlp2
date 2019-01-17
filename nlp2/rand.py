@@ -1,5 +1,6 @@
 import time
-from random import choice, randint, uniform
+from random import sample, randint, uniform
+
 
 def _checkInt(l):
     return all(isinstance(i, int) for i in l)
@@ -14,7 +15,7 @@ def _checkFloat(l):
 
 
 def random_string(length):
-    return ''.join(choice('0123456789ABCDEF') for i in range(length))
+    return ''.join(sample('0123456789ABCDEF', length))
 
 
 def random_string_with_timestamp(length):
