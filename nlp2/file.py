@@ -24,26 +24,26 @@ def read_dir_files_yield_lines(dir_path):
     for file in os.listdir(dir_path):
         with open(os.path.join(dir_path, file), "r", encoding="utf8") as f:
             for line in f:
-                yield line
+                yield line.strip()
 
 
 def read_dir_files_into_lines(dir_path):
     ret = []
     for file in os.listdir(dir_path):
         with open(os.path.join(dir_path, file), "r", encoding="utf8") as f:
-            ret += f.readlines()
+            ret += f.read().splitlines()
     return ret
 
 
 def read_files_yield_lines(path):
     with open(path, "r", encoding='utf-8') as file:
         for line in file:
-            yield line
+            yield line.strip()
 
 
 def read_files_into_lines(path):
     with open(path, "r", encoding='utf-8') as file:
-        return file.readlines()
+        return file.read().splitlines()
 
 
 def create_new_dir_always(dirPath):
@@ -88,5 +88,5 @@ def download_file(url, outdir):
             urllib.request.urlretrieve(url, outdir + outfile, _progress)
         except:
             return "File not found"
-
+    sys.stdout.write("\n")
     return outdir + outfile

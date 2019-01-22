@@ -9,8 +9,8 @@ def doc2vec_aver(pretrained_emb, emb_size, context):
             docvec = map(sum, zip(docvec, pretrained_emb[char]))
         except Exception as e:
             pass
-    docvec = map(lambda x: x / count, zip(docvec, pretrained_emb[char]))
-    return docvec.tolist()
+    docvec = map(lambda x: x / count, pretrained_emb[char])
+    return list(docvec)
 
 
 def doc2vec_max(pretrained_emb, emb_size, context):
@@ -21,25 +21,25 @@ def doc2vec_max(pretrained_emb, emb_size, context):
         except Exception as e:
             pass
     docvec = [max(row) for row in arr_list]
-    return docvec.tolist()
+    return list(docvec)
 
 
 def doc2vec_concat(pretrained_emb, emb_size, context):
     docvec = [0] * emb_size
     docvec = map(sum, zip(docvec, doc2vec_aver(pretrained_emb, emb_size, context)))
     docvec = map(sum, zip(docvec, doc2vec_max(pretrained_emb, emb_size, context)))
-    return docvec.tolist()
+    return list(docvec)
 
 
 def doc2vec_hier(pretrained_emb, emb_size, context, windows):
     arr_list = []
-    for list in list_in_windows(context, windows):
+    for i in list_in_windows(context, windows):
         try:
-            arr_list.append(doc2vec_aver(pretrained_emb, emb_size, list))
+            arr_list.append(doc2vec_aver(pretrained_emb, emb_size, i))
         except Exception as e:
             pass
     docvec = [max(row) for row in arr_list]
-    return docvec.tolist()
+    return list(docvec)
 
 
 def dot(A, B):
