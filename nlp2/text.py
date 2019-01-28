@@ -1,16 +1,27 @@
 import re
 
 punctuations = r"[．﹑︰〈〉 ─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
-httplink = r"http[:\/0-9a-zA-Z.]*"
+httplink = r"[https|http][:\/0-9a-zA-Z.?=&;]*"
+unused = r":.+:|<br>|\\n|\(\w+\)|\[.+\]"
 
 
-def remove_httplink(string):
-    result = ""
-    for sentence in filter(None, re.split(httplink, string)):
-        sentence = sentence.strip()
-        if len(sentence) > 0:
-            result += " " + sentence
-    return result.strip()
+def clean_all(string):
+    return clean_unused_tag(clean_httplink(clean_htmlelement(string)))
+
+
+def clean_unused_tag(string):
+    p = re.compile(unused)
+    return p.sub(' ', string.strip()).strip()
+
+
+def clean_htmlelement(data):
+    p = re.compile(r'<.*?>')
+    return p.sub(' ', data.strip()).strip()
+
+
+def clean_httplink(string):
+    p = re.compile(httplink)
+    return p.sub(' ', string.strip()).strip()
 
 
 def split_lines_by_punc(lines):

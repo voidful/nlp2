@@ -4,14 +4,26 @@ from nlp2.text import *
 
 class TestText(unittest.TestCase):
 
-    def test_remove_httplink(self):
-        self.assertEqual(remove_httplink("http://news.IN1802020028.htm 今天天氣http://news.we028.晴朗"), "今天天氣 晴朗")
+    def test_clean_all(self):
+        self.assertEqual(clean_all(
+            "<br><br>http://news.IN1802020028.htm[quote]原帖由 [i]234282[/i] 於 2019-1-18 06:46 PM 發表 [url=https://www.discuss.com.hk/redirect.php?goto=findpost&amp;pid=493614969&amp;ptid=27981082][img]https://www.discuss.com.hk/images/common/back.gif[/img][/url]<br>\n無聊得過此帖？！:smile_42: [/quote]<br>\n<br>\n<br>\n認同。<br>\n<br>\n改洋名，只是一個字號。"),
+            "無聊得過此帖？！    \n \n \n認同。 \n \n改洋名，只是一個字號。")
+
+    def test_clean_content(self):
+        self.assertEqual(clean_unused_tag(
+            "[quote]原帖由 [i]234282[/i] 於 2019-1-18 06:46 PM 發表 [url=https://www.discuss.com.hk/redirect.php?goto=findpost&amp;pid=493614969&amp;ptid=27981082][img]https://www.discuss.com.hk/images/common/back.gif[/img][/url]<br>\n無聊得過此帖？！:smile_42: [/quote]<br>\n<br>\n<br>\n認同。<br>\n<br>\n改洋名，只是一個字號。"),
+            "無聊得過此帖？！    \n \n \n認同。 \n \n改洋名，只是一個字號。")
+
+    def test_clean_httplink(self):
+        self.assertEqual(clean_httplink("http://news.IN1802020028.htm 今天天氣http://news.we028.晴朗"), "今天天氣 晴朗")
+        self.assertEqual(clean_httplink(" https://forum.gamer.com.tw/C.php?bsn=60076&amp;snA=2817750  "), "")
 
     def test_split_lines_by_punc(self):
         self.assertEqual(split_lines_by_punc(["你好啊.hello，me"]), ['你好啊', 'hello', 'me'])
 
     def test_split_sentence_to_ngram(self):
-        self.assertEqual(split_sentence_to_ngram("加州旅館"), ['加', '加州', "加州旅", "加州旅館", "州", "州旅", "州旅館", "旅", "旅館", "館"])
+        self.assertEqual(split_sentence_to_ngram("加州旅館"),
+                         ['加', '加州', "加州旅", "加州旅館", "州", "州旅", "州旅館", "旅", "旅館", "館"])
 
     def test_split_sentence_to_ngram_in_part(self):
         self.assertEqual(split_sentence_to_ngram_in_part("加州旅館"),
@@ -50,6 +62,5 @@ class TestText(unittest.TestCase):
     def test_half2full(self):
         self.assertEqual(half2full("，,"), "，，")
 
-
-if __name__ == '__main__':
-    unittest.main()
+    if __name__ == '__main__':
+        unittest.main()
