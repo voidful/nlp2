@@ -1,7 +1,7 @@
 import re
 
 punctuations = r"[．﹑︰〈〉 ─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
-httplink = r"[https|http][:\/0-9a-zA-Z.?=&;]*"
+httplink = r"(https|http)[:\/0-9a-zA-Z.?=&;]*"
 unused = r":.+:|<br>|\\n|\(\w+\)|\[.+\]"
 
 
@@ -121,6 +121,10 @@ def is_contain_number(s):
 
 def is_contain_english(s):
     return bool(re.search(r'[a-zA-Z]+', s))
+
+
+def is_list_contain_string(f_str, f_list):
+    return any(s in f_str for s in f_list) or any(f_str in s for s in f_list)
 
 
 def full2half(s):

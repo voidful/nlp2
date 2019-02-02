@@ -200,7 +200,7 @@ print(i)
 
 <h2 id="text">Text cleaning/parsing</h2>
    
-### remove_httplink(string)  
+### clean_httplink(string)  
 remove http link in context  
 Arguments  
 - `string(String)` : a string may contain http link   
@@ -215,6 +215,62 @@ print(y)
 
 今天天氣 晴朗
 ```
+
+### clean_htmlelement(string)  
+remove html element in context  
+Arguments  
+- `string(String)` : a string may contain html element   
+
+Returns  
+- `result(String)` : string without any html element
+
+Examples  
+```
+y = clean_htmlelement("<div class=""><p>Phraseg - 一言：新詞發現工具包</p></div>")
+print(y)
+
+Phraseg - 一言：新詞發現工具包
+```
+
+### clean_unused_tag(string)  
+remove unused tag in context  
+Arguments  
+- `string(String)` : a string may contain unused tag    
+
+Returns  
+- `result(String)` : string without any unused tag 
+
+Examples  
+```
+y = clean_unused_tag("[quote]<br>\n無聊得過此帖？！:smile_42: [/quote]<br>\n<br>\n<br>\n認同。<br>\n<br>\n改洋名，只是一個字號。"))
+print(y)
+
+無聊得過此帖？！    
+ 
+  
+認同。
+
+
+改洋名，只是一個字號。
+```
+
+### clean_all(string)  
+apply all clean method to clean context    
+clean_unused_tag / clean_htmlelement / clean_httplink  
+Arguments  
+- `string(String)` : a string may contain some garbage   
+
+Returns  
+- `result(String)` : clean string
+
+Examples  
+```
+y = clean_all("[i]234282[/i] <div class=""><p>Phraseg - 一言：新詞發現工具包http://news.IN1802020028.htm今天天氣http://news.we028.晴朗</p></div>"))
+print(y)
+
+Phraseg - 一言：新詞發現工具包 今天天氣 晴朗
+```
+
 
 ### split_lines_by_punc(lines)
 make lines in array form into sentences array  
@@ -366,6 +422,23 @@ Examples
 is_contain_english("1SGD")
 is_contain_english("123哦")
 
+True
+False
+```
+
+### is_list_contain_string(text)
+Arguments
+- `str(String)` : input text  
+- `list(String list)` : input string    
+Returns  
+- `result(Boolean)` : whether the text is a part of list item  
+Examples  
+```
+is_list_contain_string("a", ['a', 'dcd'])
+is_list_contain_string("a", ['abcd', 'dcd'])
+is_list_contain_string("a", ['bdc', 'dcd'])
+
+True
 True
 False
 ```
