@@ -2,7 +2,7 @@ import unittest
 from nlp2.vectorize import *
 import gensim
 
-model = gensim.models.KeyedVectors.load_word2vec_format("")
+model = gensim.models.KeyedVectors.load_word2vec_format("C:\\Users\\john\\Documents\\Corpus\\wordvec\\wiki_1_6.vec")
 model_size = 300
 
 

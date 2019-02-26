@@ -7,9 +7,9 @@ def doc2vec_aver(pretrained_emb, emb_size, context):
     for char in context:
         try:
             docvec = map(sum, zip(docvec, pretrained_emb[char]))
+            docvec = map(lambda x: x / count, pretrained_emb[char])
         except Exception as e:
             pass
-    docvec = map(lambda x: x / count, pretrained_emb[char])
     return list(docvec)
 
 
