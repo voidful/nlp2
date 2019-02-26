@@ -4,11 +4,11 @@ from .text import *
 def doc2vec_aver(pretrained_emb, emb_size, context):
     docvec = [0] * emb_size
     count = len(context)
-    for char in context:
+    for c in context:
         try:
-            if char in pretrained_emb:
-                docvec = map(sum, zip(docvec, pretrained_emb[char]))
-                docvec = map(lambda x: x / count, pretrained_emb[char])
+            if c in pretrained_emb:
+                docvec = map(sum, zip(docvec, pretrained_emb[c]))
+                docvec = map(lambda x: x / count, pretrained_emb[c])
         except Exception as e:
             pass
     return list(docvec)
@@ -16,10 +16,10 @@ def doc2vec_aver(pretrained_emb, emb_size, context):
 
 def doc2vec_max(pretrained_emb, emb_size, context):
     arr_list = []
-    for char in context:
+    for c in context:
         try:
-            if char in pretrained_emb:
-                arr_list.append(pretrained_emb[char])
+            if c in pretrained_emb:
+                arr_list.append(pretrained_emb[c])
         except Exception as e:
             pass
     docvec = [max(row) for row in arr_list]
