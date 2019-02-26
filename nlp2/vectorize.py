@@ -6,9 +6,8 @@ def doc2vec_aver(pretrained_emb, emb_size, context):
     count = len(context)
     for c in context:
         try:
-            if c in pretrained_emb:
-                docvec = map(sum, zip(docvec, pretrained_emb[c]))
-                docvec = map(lambda x: x / count, pretrained_emb[c])
+            docvec = map(sum, zip(docvec, pretrained_emb[c]))
+            docvec = map(lambda x: x / count, pretrained_emb[c])
         except Exception as e:
             pass
     return list(docvec)
@@ -18,8 +17,7 @@ def doc2vec_max(pretrained_emb, emb_size, context):
     arr_list = []
     for c in context:
         try:
-            if c in pretrained_emb:
-                arr_list.append(pretrained_emb[c])
+            arr_list.append(pretrained_emb[c])
         except Exception as e:
             pass
     docvec = [max(row) for row in arr_list]
