@@ -47,4 +47,6 @@ def dot(A, B):
 
 
 def cosine_similarity(vector1, vector2):
+    if vector1 is 0 or vector2 is 0:
+        return 0
     return dot(vector1, vector2) / ((dot(vector1, vector1) ** .5) * (dot(vector2, vector2) ** .5))
