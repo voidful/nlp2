@@ -1,4 +1,5 @@
 import re
+import math
 
 punctuations = r"[．﹑︰〈〉 ─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]+"
 httplink = r"(https|http)[:\/0-9a-zA-Z.?=&;]*"
@@ -151,3 +152,16 @@ def half2full(s):
         num = chr(num)
         n.append(num)
     return ''.join(n)
+
+
+def sliding_widows_larger_step(a, slide=128):
+    for i in range(math.ceil(len(a) / slide) + 1):
+        move = int(i * slide / 2)
+        if len(a[move:move + slide]) > 0:
+            yield a[move:move + slide]
+
+
+def sliding_widows(a, slide=128):
+    for i in range(int(len(a) / slide) + 1):
+        if len(a[i * slide:i * slide + slide]) > 0:
+            yield a[i * slide:i * slide + slide]
