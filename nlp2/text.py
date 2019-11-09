@@ -83,12 +83,6 @@ def spilt_sentence_to_array(sentence, splitText=False):
     return path
 
 
-def list_in_windows(list, windows):
-    if windows > len(list):
-        windows = len(list)
-    return [list[x:x + windows] for x in range(len(list) - windows + 1)]
-
-
 def join_words_array_to_sentence(array):
     return ''.join([subPath + (' ' if is_all_english(str(array)) else '') for subPath in array]).strip()
 
@@ -154,14 +148,24 @@ def half2full(s):
     return ''.join(n)
 
 
-def sliding_widows_larger_step(a, slide=128):
+def sliding_windows_larger_step(a, slide=128):
     for i in range(math.ceil(len(a) / slide) + 1):
         move = int(i * slide / 2)
         if len(a[move:move + slide]) > 0:
             yield a[move:move + slide]
 
 
-def sliding_widows(a, slide=128):
+def sliding_windows(a, slide=128):
     for i in range(int(len(a) / slide) + 1):
         if len(a[i * slide:i * slide + slide]) > 0:
             yield a[i * slide:i * slide + slide]
+
+
+def list_in_windows(list, windows):
+    if windows > len(list):
+        windows = len(list)
+    iter_range = (len(list) - windows + 1)
+    jump = int(iter_range / 2)
+    return [list[x:x + windows] for x in range(0, iter_range, jump)]
+
+
