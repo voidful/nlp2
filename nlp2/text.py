@@ -163,7 +163,7 @@ def sliding_windows(a, slide=128):
 
 def list_in_windows(list, windows):
     if windows > len(list):
-        windows = len(list)
+        return [list]
     iter_range = (len(list) - windows + 1)
     jump = int(iter_range / 2)
     return [list[x:x + windows] for x in range(0, iter_range, jump)]
