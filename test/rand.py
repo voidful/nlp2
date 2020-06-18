@@ -14,7 +14,7 @@ class TestRandom(unittest.TestCase):
         self.addTypeEqualityFunc(str, random_string_with_timestamp(3))
 
     def test_random_value_in_array_form(self):
-        self.assertEqual(random_value_in_array_form([3, 4]), 3)
+        self.assertEqual(random_value_in_array_form([3, 3]), 3)
         self.assertEqual(random_value_in_array_form([3.0, 3.0]), 3)
         self.assertEqual(random_value_in_array_form(['A', 'A']), 'A')
 

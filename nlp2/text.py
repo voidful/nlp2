@@ -43,7 +43,7 @@ def split_sentence_to_ngram(sentence):
     for i in range(len(path)):
         for j in range(1, len(path) + 1):
             if i + j <= len(path):
-                ngrams.append(join_words_array_to_sentence([subPath for subPath in path[i:i + j]]))
+                ngrams.append(join_words_to_sentence([subPath for subPath in path[i:i + j]]))
     return ngrams
 
 
@@ -55,26 +55,26 @@ def split_sentence_to_ngram_in_part(sentence):
         part = []
         for j in range(1, len(path) + 1):
             if i + j <= len(path):
-                part.append(join_words_array_to_sentence([subPath for subPath in path[i:i + j]]))
+                part.append(join_words_to_sentence([subPath for subPath in path[i:i + j]]))
 
         ngrams.append(part)
     return ngrams
 
 
-def spilt_text_in_all_ways(sentence):
+def split_text_in_all_comb(sentence):
     result = []
     for i in range(len(sentence)):
         ipart = "".join(sentence[:i + 1])
         irest = sentence[i + 1:]
         if len(irest) > len(ipart):
-            for j in spilt_text_in_all_ways(irest):
+            for j in split_text_in_all_comb(irest):
                 result.append((ipart + " " + j).rstrip())
         else:
-            result.append((ipart + " " + join_words_array_to_sentence(irest)).rstrip())
+            result.append((ipart + " " + join_words_to_sentence(irest)).rstrip())
     return result
 
 
-def spilt_sentence_to_array(sentence, splitText=False):
+def split_sentence_to_array(sentence, splitText=False):
     if splitText:
         regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     else:
@@ -83,7 +83,7 @@ def spilt_sentence_to_array(sentence, splitText=False):
     return path
 
 
-def join_words_array_to_sentence(array):
+def join_words_to_sentence(array):
     return ''.join([subPath + (' ' if is_all_english(str(array)) else '') for subPath in array]).strip()
 
 
@@ -167,5 +167,3 @@ def list_in_windows(list, windows):
     iter_range = (len(list) - windows + 1)
     jump = int(iter_range / 2)
     return [list[x:x + windows] for x in range(0, iter_range, jump)]
-
-

@@ -36,16 +36,16 @@ class TestText(unittest.TestCase):
         self.assertEqual(split_sentence_to_ngram_in_part("加州旅館"),
                          [['加', '加州', "加州旅", "加州旅館"], ["州", "州旅", "州旅館"], ["旅", "旅館"], ["館"]])
 
-    def test_spilt_text_in_all_ways(self):
-        self.assertEqual(spilt_text_in_all_ways("加州旅館"),
+    def test_split_text_in_all_ways(self):
+        self.assertEqual(split_text_in_all_comb("加州旅館"),
                          ['加 州 旅 館', '加 州 旅館', '加 州旅 館', '加 州旅館', '加州 旅館', '加州旅 館', '加州旅館'])
 
-    def test_spilt_sentence_to_array(self):
-        self.assertEqual(spilt_sentence_to_array('你好 are  u 可以'), ['你好', 'are', 'u', '可以'])
-        self.assertEqual(spilt_sentence_to_array('你好 are  u 可以', True), ['你', '好', 'are', 'u', '可', '以'])
+    def test_split_sentence_to_array(self):
+        self.assertEqual(split_sentence_to_array('你好 are  u 可以'), ['你好', 'are', 'u', '可以'])
+        self.assertEqual(split_sentence_to_array('你好 are  u 可以', True), ['你', '好', 'are', 'u', '可', '以'])
 
     def test_join_words_array_to_sentence(self):
-        self.assertEqual(join_words_array_to_sentence(['你好', 'are', "可以"]), "你好are可以")
+        self.assertEqual(join_words_to_sentence(['你好', 'are', "可以"]), "你好are可以")
 
     def test_passage_into_chunk(self):
         self.assertEqual(passage_into_chunk("xxxxxxxx\noo\nyyzz\ngggggg\nkkkk\n", 10),

@@ -13,12 +13,12 @@ class TestFile(unittest.TestCase):
             self.assertTrue(is_file_exist(i))
 
     def test_read_dir_files_yield_lines(self):
-        self.assertEqual(list(read_dir_files_yield_lines('./test_folder/text/')), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
-        self.assertEqual(list(read_dir_files_yield_lines('./test_folder/text')), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(list(read_dir_files_yield_lines('./test_folder/text/')), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(list(read_dir_files_yield_lines('./test_folder/text')), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
 
     def test_read_dir_files_into_lines(self):
-        self.assertEqual(read_dir_files_into_lines('./test_folder/text/'), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
-        self.assertEqual(read_dir_files_into_lines('./test_folder/text'), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(read_dir_files_into_lines('./test_folder/text/'), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(read_dir_files_into_lines('./test_folder/text'), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
 
     def test_read_files_yield_lines(self):
         self.assertEqual(list(read_files_yield_lines('./test_folder/text/file1')), ['abcabcabc', '天氣晴朗', '多雲'])
