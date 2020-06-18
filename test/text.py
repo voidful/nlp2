@@ -41,8 +41,8 @@ class TestText(unittest.TestCase):
                          ['加 州 旅 館', '加 州 旅館', '加 州旅 館', '加 州旅館', '加州 旅館', '加州旅 館', '加州旅館'])
 
     def test_split_sentence_to_array(self):
-        self.assertEqual(split_sentence_to_array('你好 are  u 可以'), ['你好', 'are', 'u', '可以'])
-        self.assertEqual(split_sentence_to_array('你好 are  u 可以', True), ['你', '好', 'are', 'u', '可', '以'])
+        self.assertEqual(split_sentence_to_array('你好 are  u 可以', True), ['你好', 'are', 'u', '可以'])
+        self.assertEqual(split_sentence_to_array('你好 are  u 可以'), ['你', '好', 'are', 'u', '可', '以'])
 
     def test_join_words_array_to_sentence(self):
         self.assertEqual(join_words_to_sentence(['你好', 'are', "可以"]), "你好are可以")

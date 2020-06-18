@@ -335,21 +335,21 @@ split_text_in_all_ways("加州旅館")
 ['加 州 旅 館', '加 州 旅館', '加 州旅 館', '加 州旅館', '加州 旅館', '加州旅 館', '加州旅館']
 ```
 
-### split_sentence_to_array(sentence,splitText=False)
+### split_sentence_to_array(sentence,merge_non_eng=False)
 use to split sentences in different kind of language
 Arguments
 - `sentence(String)` : input sentence
-- `splitText(boolean,optional)` : split Chinese in char
+- `merge_non_eng(boolean,optional)` : split non english in char or not
 
 Returns
 - `segment array(String Array)` : word array
 
 ```
-split_sentence_to_array('你好 are  u 可以')
+split_sentence_to_array('你好 are  u 可以',merge_non_eng = True)
 
 ['你好', 'are', 'u', '可以']
 
-split_sentence_to_array('你好 are  u 可以',True)
+split_sentence_to_array('你好 are  u 可以')
 
 ['你', '好', 'are', 'u', '可', '以']
 ```
