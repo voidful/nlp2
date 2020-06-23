@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 import urllib.request
 
@@ -8,6 +9,13 @@ def get_folders_form_dir(root, match=""):
     for path, subdirs, files in os.walk(root):
         if path != root:
             yield path
+
+
+def get_filename_from_path(path):
+    """Extracts basename of a given path. Should Work with any OS Path on any OS"""
+    basename = re.search(r'[^\\/]+(?=[\\/]?$)', path)
+    if basename:
+        return basename.group(0)
 
 
 def get_files_from_dir(root, match=""):

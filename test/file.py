@@ -4,6 +4,11 @@ from nlp2.file import *
 
 class TestFile(unittest.TestCase):
 
+    def test_get_filename_from_path(self):
+        paths = ['a/b/c/', 'a/b/c', '\\a\\b\\c', '\\a\\b\\c\\', 'a\\b\\c', 'a/b/../../a/b/c/', 'a/b/../../a/b/c']
+        for path in paths:
+            self.assertTrue('c' == get_filename_from_path(path))
+
     def test_get_folders_form_dir(self):
         for i in get_folders_form_dir('./test_folder'):
             self.assertTrue(is_dir_exist(i))
