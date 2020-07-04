@@ -18,11 +18,25 @@ class TestPanel(unittest.TestCase):
         argument = function_argument_panel(a)
         self.assertEqual(len(argument), 0)
 
+    def test_Pred(self):
+        def a(input):
+            pass
+
+        argument = function_argument_panel(a)
+        self.assertEqual(len(argument), 0)
+
+    def test_Pred(self):
+        def a(input=''):
+            pass
+
+        argument = function_argument_panel(a, disable_input_panel=True)
+        self.assertEqual(argument['input'], '')
+
     def test_Default(self):
         def a(c="a"):
             pass
 
-        argument = function_argument_panel(a, use_default=True)
+        argument = function_argument_panel(a, disable_input_panel=True)
         self.assertEqual(argument['c'], 'a')
 
     def test_missing(self):

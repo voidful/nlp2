@@ -25,7 +25,7 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, fu
                             show_func_name=False):
     """use inquirer panel to let user input function parameter or just use default value"""
     fname = func.__name__
-    if len(inspect.getfullargspec(func).args) > 0 and 'defaults' in inspect.getfullargspec(func):
+    if len(inspect.getfullargspec(func).args) > 0 and inspect.getfullargspec(func).defaults is not None:
         arg_len = len(inspect.getfullargspec(func).args)
         def_len = len(inspect.getfullargspec(func).defaults)
         arg_w_def = zip(inspect.getfullargspec(func).args[arg_len - def_len:],
