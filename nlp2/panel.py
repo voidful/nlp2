@@ -24,10 +24,10 @@ class Panel:
                 self.element_list.append(inquirer.Text(k, message=msg, default=v))
         else:
             if isinstance(v, list):
-                selected = ''
-                while selected not in [str(e) for e in v]:
-                    selected = input(msg + ", input an item in the list " + str(v) + ": ")
-                self.element_list.append(selected)
+                inputted = ''
+                while inputted not in [str(e) for e in v]:
+                    inputted = input(msg + ", input an item in the list " + str(v) + ": ")
+                self.element_list.append(inputted)
             else:
                 self.element_list.append(input(msg + ", [default=" + str(v) + "]: "))
         self.key_list.append(k)
@@ -77,17 +77,13 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ig
         # panel
         panel = Panel()
         for k, v in def_arg.items():
-            if v is not None and (isinstance(v, bool) or len(v) > 0 or not ignore_empty):
+            if v is not None and (not isinstance(v, str) or len(v) > 0 or not ignore_empty):
                 msg = fname + " " + k if show_func_name else k
                 if callable(v):
                     v = v(func_parent)
                     function_def_arg[k] = v(func_parent)[0]  # set default value
                 elif isinstance(v, bool):
                     v = [True, False]
-                elif isinstance(v, float) and 0 < v < 1:  # probability
-                    msg += " (between 0-1)"
-                elif isinstance(v, float) or isinstance(v, int):  # number
-                    msg += " (number)"
                 panel.add_element(k, v, msg)
 
         if not disable_input_panel:
