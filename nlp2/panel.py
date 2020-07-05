@@ -80,8 +80,8 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ig
             if v is not None and (not isinstance(v, str) or len(v) > 0 or not ignore_empty):
                 msg = fname + " " + k if show_func_name else k
                 if callable(v):
-                    v = v(func_parent)
-                    function_def_arg[k] = v(func_parent)[0]  # set default value
+                    v = v(func_parent) if func_parent else v()
+                    function_def_arg[k] = v[0]  # set default value
                 elif isinstance(v, bool):
                     v = [True, False]
                 panel.add_element(k, v, msg)
