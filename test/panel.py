@@ -32,6 +32,9 @@ class TestPanel(unittest.TestCase):
         argument = function_argument_panel(a, disable_input_panel=True)
         self.assertEqual(argument['input'], '')
 
+        argument = function_argument_panel(a, ignore_empty=True)
+        self.assertEqual(argument['input'], '')
+
     def test_Default(self):
         def a(c="a"):
             pass
