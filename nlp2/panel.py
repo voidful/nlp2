@@ -5,11 +5,19 @@ import sys
 
 class Panel:
     def __init__(self):
-        in_jupyter = sys.argv[-1].endswith('json')
-        self.in_jupyter = in_jupyter
+        self.in_jupyter = self._in_notebook()
         self.element_list = []
         self.key_list = []
         self.result_dict = {}
+
+    def _in_notebook(self):
+        return True
+        try:
+            import __main__ as main
+            import sys
+            return not hasattr(main, '__file__') or 'ipykernel' in sys.modules or 'google.colab' in sys.modules
+        except NameError:
+            return False
 
     def add_element(self, k, v, msg):
         if isinstance(v, float) and 0 < v < 1:  # probability
