@@ -35,10 +35,6 @@ class TestPanel(unittest.TestCase):
         argument = function_argument_panel(a, ignore_empty=True)
         self.assertEqual(argument['input'], '')
 
-    def test_innotebook(self):
-       p = Panel()
-       self.assertFalse(p.in_jupyter)
-
     def test_Default(self):
         def a(c="a"):
             pass

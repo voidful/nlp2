@@ -1,23 +1,11 @@
 import inspect
-import inquirer
-import sys
 
 
 class Panel:
     def __init__(self):
-        self.in_jupyter = self._in_notebook()
         self.element_list = []
         self.key_list = []
         self.result_dict = {}
-
-    def _in_notebook(self):
-        return True
-        try:
-            import __main__ as main
-            import sys
-            return not hasattr(main, '__file__') or 'ipykernel' in sys.modules or 'google.colab' in sys.modules
-        except NameError:
-            return False
 
     def add_element(self, k, v, msg):
         if isinstance(v, float) and 0 < v < 1:  # probability
@@ -25,30 +13,19 @@ class Panel:
         elif isinstance(v, float) or isinstance(v, int):  # number
             msg += " (number)"
 
-        if not self.in_jupyter:
-            if isinstance(v, list):
-                self.element_list.append(inquirer.List(k, message=msg, choices=v))
-            else:
-                self.element_list.append(inquirer.Text(k, message=msg, default=v))
+        if isinstance(v, list):
+            inputted = ''
+            while inputted not in [str(e) for e in v]:
+                inputted = input(msg + ", input an item in the list " + str(v) + ": ")
+            self.element_list.append(inputted)
         else:
-            if isinstance(v, list):
-                inputted = ''
-                while inputted not in [str(e) for e in v]:
-                    inputted = input(msg + ", input an item in the list " + str(v) + ": ")
-                self.element_list.append(inputted)
-            else:
-                self.element_list.append(input(msg + ", [default=" + str(v) + "]: "))
+            self.element_list.append(input(msg + ", [default=" + str(v) + "]: "))
         self.key_list.append(k)
 
-    def show_panel(self):
-        if not self.in_jupyter:
-            self.result_dict = inquirer.prompt(self.element_list)
-
     def get_result_dict(self):
-        if not self.in_jupyter:
-            return self.result_dict
-        else:
-            return dict(zip(self.key_list, self.element_list))
+        result_dict = dict(zip(self.key_list, self.element_list))
+        return {k: v for k, v in result_dict.items() if
+                v is not None and len(v) > 0}  # only return non empty result
 
 
 def function_get_all_arg(func):
@@ -96,7 +73,6 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ig
                     panel.add_element(k, v, msg)
 
         if not disable_input_panel:
-            panel.show_panel()
             function_def_arg.update(panel.get_result_dict())
         return function_def_arg
     else:
