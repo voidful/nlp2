@@ -92,7 +92,8 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ig
                     function_def_arg[k] = v[0]  # set default value
                 elif isinstance(v, bool):
                     v = [True, False]
-                panel.add_element(k, v, msg)
+                if not disable_input_panel:
+                    panel.add_element(k, v, msg)
 
         if not disable_input_panel:
             panel.show_panel()
