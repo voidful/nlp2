@@ -36,12 +36,12 @@ def split_lines_by_punc(lines):
     return sentences
 
 
-def split_sentence_to_ngram(sentence):
+def split_sentence_to_ngram(sentence, max_len=30):
     ngrams = []
     regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
     for i in range(len(path)):
-        for j in range(1, len(path) + 1):
+        for j in range(1, min(len(path) + 1,max_len)):
             if i + j <= len(path):
                 ngrams.append(join_words_to_sentence([subPath for subPath in path[i:i + j]]))
     return ngrams
