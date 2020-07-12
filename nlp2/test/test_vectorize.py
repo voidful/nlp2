@@ -3,15 +3,13 @@ import unittest
 import pytest
 
 from nlp2.vectorize import *
-import gensim
-
-
 
 
 class TestVectorize(unittest.TestCase):
 
     @pytest.mark.skip()
     def test_doc2vec_max(self):
+        import gensim
         model = gensim.models.KeyedVectors.load_word2vec_format("fileloc")
         model_size = 300
         v1 = doc2vec_max(model, model_size, "你好")
@@ -22,6 +20,7 @@ class TestVectorize(unittest.TestCase):
 
     @pytest.mark.skip()
     def test_doc2vec_aver(self):
+        import gensim
         model = gensim.models.KeyedVectors.load_word2vec_format("fileloc")
         model_size = 300
         v1 = doc2vec_aver(model, model_size, "你好")
@@ -32,6 +31,7 @@ class TestVectorize(unittest.TestCase):
 
     @pytest.mark.skip()
     def test_doc2vec_concat(self):
+        import gensim
         model = gensim.models.KeyedVectors.load_word2vec_format("fileloc")
         model_size = 300
         v1 = doc2vec_concat(model, model_size, "你好")
@@ -42,6 +42,7 @@ class TestVectorize(unittest.TestCase):
 
     @pytest.mark.skip()
     def test_doc2vec_concat(self):
+        import gensim
         model = gensim.models.KeyedVectors.load_word2vec_format("fileloc")
         model_size = 300
         v1 = doc2vec_hier(model, model_size, "你好", windows=2)
