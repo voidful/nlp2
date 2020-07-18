@@ -25,35 +25,35 @@ def clean_httplink(string):
     return p.sub(' ', string.strip()).strip()
 
 
-def split_lines_by_punc(lines):
+def split_lines_by_punc(lines, max_len=70):
     sentences = []
     for line in lines:
         line = full2half(line.strip())
         for sentence in filter(None, re.split(punctuations, line)):
             sentence = sentence.strip()
-            if len(sentence) > 0:
+            if len(sentence) > 0 and len(split_sentence_to_array(sentence)) < max_len:
                 sentences.append(sentence)
     return sentences
 
 
-def split_sentence_to_ngram(sentence, max_len=30):
+def split_sentence_to_ngram(sentence, max_len=20):
     ngrams = []
     regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
     for i in range(len(path)):
-        for j in range(1, min(len(path) + 1,max_len)):
+        for j in range(1, min(len(path) + 1, max_len)):
             if i + j <= len(path):
                 ngrams.append(join_words_to_sentence([subPath for subPath in path[i:i + j]]))
     return ngrams
 
 
-def split_sentence_to_ngram_in_part(sentence):
+def split_sentence_to_ngram_in_part(sentence, max_len=20):
     ngrams = []
     regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
     for i in range(len(path)):
         part = []
-        for j in range(1, len(path) + 1):
+        for j in range(1, min(len(path) + 1, max_len)):
             if i + j <= len(path):
                 part.append(join_words_to_sentence([subPath for subPath in path[i:i + j]]))
 
