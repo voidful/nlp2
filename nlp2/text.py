@@ -25,7 +25,7 @@ def clean_httplink(string):
     return p.sub(' ', string.strip()).strip()
 
 
-def split_lines_by_punc(lines, max_len=70):
+def split_lines_by_punc(lines, max_len=50):
     sentences = []
     for line in lines:
         line = full2half(line.strip())
@@ -36,7 +36,7 @@ def split_lines_by_punc(lines, max_len=70):
     return sentences
 
 
-def split_sentence_to_ngram(sentence, max_len=20):
+def split_sentence_to_ngram(sentence, max_len=15):
     ngrams = []
     regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
@@ -47,7 +47,7 @@ def split_sentence_to_ngram(sentence, max_len=20):
     return ngrams
 
 
-def split_sentence_to_ngram_in_part(sentence, max_len=20):
+def split_sentence_to_ngram_in_part(sentence, max_len=15):
     ngrams = []
     regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
     path = re.findall(regex, sentence, re.UNICODE)
