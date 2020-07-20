@@ -8,18 +8,21 @@ class Panel:
         self.result_dict = {}
 
     def add_element(self, k, v, msg):
-        if isinstance(v, float) and 0 < v < 1:  # probability
-            msg += " (between 0-1)"
-        elif isinstance(v, float) or isinstance(v, int):  # number
-            msg += " (number)"
-
         if isinstance(v, list):
             inputted = ''
             while inputted not in [str(e) for e in v]:
                 inputted = input(msg + ", input an item in the list " + str(v) + ": ")
             self.element_list.append(inputted)
         else:
-            self.element_list.append(input(msg + ", [default=" + str(v) + "]: "))
+            if isinstance(v, float) and 0 < v < 1:  # probability
+                invalue = float(input(msg + " (between 0-1), [default=" + str(v) + "]: "))
+            elif isinstance(v, float) :  # number
+                invalue = float(input(msg + " (float), [default=" + str(v) + "]: "))
+            elif isinstance(v, int):  # number
+                invalue = int(input(msg + " (number), [default=" + str(v) + "]: "))
+            else:
+                invalue = input(msg + ", [default=" + str(v) + "]: ")
+            self.element_list.append(invalue)
         self.key_list.append(k)
 
     def get_result_dict(self):

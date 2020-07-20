@@ -76,9 +76,9 @@ def split_text_in_all_comb(sentence):
 
 def split_sentence_to_array(sentence, merge_non_eng=False):
     if merge_non_eng:
-        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]+"
+        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]+" + "|" + punctuations
     else:
-        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]"
+        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]" + "|" + punctuations
     path = re.findall(regex, sentence, re.UNICODE)
     return path
 
