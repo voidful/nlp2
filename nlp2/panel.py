@@ -15,11 +15,11 @@ class Panel:
             self.element_list.append(inputted)
         else:
             if isinstance(v, float) and 0 < v < 1:  # probability
-                invalue = float(input(msg + " (between 0-1), [default=" + str(v) + "]: "))
-            elif isinstance(v, float) :  # number
-                invalue = float(input(msg + " (float), [default=" + str(v) + "]: "))
+                invalue = float(input(msg + " (between 0-1), [default=" + str(v) + "]: ") or v)
+            elif isinstance(v, float):  # number
+                invalue = float(input(msg + " (float), [default=" + str(v) + "]: ") or v)
             elif isinstance(v, int):  # number
-                invalue = int(input(msg + " (number), [default=" + str(v) + "]: "))
+                invalue = int(input(msg + " (number), [default=" + str(v) + "]: ") or v)
             else:
                 invalue = input(msg + ", [default=" + str(v) + "]: ")
             self.element_list.append(invalue)
@@ -28,7 +28,7 @@ class Panel:
     def get_result_dict(self):
         result_dict = dict(zip(self.key_list, self.element_list))
         return {k: v for k, v in result_dict.items() if
-                v is not None and len(v) > 0}  # only return non empty result
+                v is not None and len(str(v)) > 0}  # only return non empty result
 
 
 def function_get_all_arg(func):
