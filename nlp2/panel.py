@@ -7,21 +7,23 @@ class Panel:
         self.key_list = []
         self.result_dict = {}
 
-    def add_element(self, k, v, msg):
+    def add_element(self, k, v, msg, default):
         if isinstance(v, list):
             inputted = ''
             while inputted not in [str(e) for e in v]:
-                inputted = input(msg + ", input an item in the list " + str(v) + ": ")
+                inputted = input(msg + ", input an item in the list " + str(v) + ", [default=" + str(default) + "]: ")
+                if inputted == '':
+                    inputted = str(default)
             self.element_list.append(inputted)
         else:
             if isinstance(v, float) and 0 < v < 1:  # probability
-                invalue = float(input(msg + " (between 0-1), [default=" + str(v) + "]: ") or v)
+                invalue = float(input(msg + " (between 0-1), [default=" + str(default) + "]: ") or v)
             elif isinstance(v, float):  # number
-                invalue = float(input(msg + " (float), [default=" + str(v) + "]: ") or v)
+                invalue = float(input(msg + " (float), [default=" + str(default) + "]: ") or v)
             elif isinstance(v, int):  # number
-                invalue = int(input(msg + " (number), [default=" + str(v) + "]: ") or v)
+                invalue = int(input(msg + " (number), [default=" + str(default) + "]: ") or v)
             else:
-                invalue = input(msg + ", [default=" + str(v) + "]: ")
+                invalue = input(msg + ", [default=" + str(default) + "]: ")
             self.element_list.append(invalue)
         self.key_list.append(k)
 
@@ -67,13 +69,15 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ig
         for k, v in def_arg.items():
             if v is not None and (not isinstance(v, str) or len(v) > 0 or not ignore_empty):
                 msg = fname + " " + k if show_func_name else k
+                default_v = v
                 if callable(v):
                     v = v(func_parent) if func_parent else v()
                     function_def_arg[k] = v[0]  # set default value
+                    default_v = v[0]
                 elif isinstance(v, bool):
                     v = [True, False]
                 if not disable_input_panel:
-                    panel.add_element(k, v, msg)
+                    panel.add_element(k, v, msg, default_v)
 
         if not disable_input_panel:
             function_def_arg.update(panel.get_result_dict())
