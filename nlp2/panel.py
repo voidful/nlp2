@@ -42,6 +42,17 @@ def function_get_all_arg(func):
         return []
 
 
+def function_get_all_arg_with_value(func):
+    if len(inspect.getfullargspec(func).args) > 0:
+        arg_len = len(inspect.getfullargspec(func).args)
+        def_len = len(inspect.getfullargspec(func).defaults)
+        arg_w_def = dict(zip(inspect.getfullargspec(func).args[arg_len - def_len:],
+                             inspect.getfullargspec(func).defaults))
+        return arg_w_def
+    else:
+        return {}
+
+
 def function_check_wrong_arg(func, input_arg):
     all_arg = function_get_all_arg(func)
     return [arg for arg in input_arg if arg not in all_arg]
@@ -57,12 +68,7 @@ def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ig
     """use inquirer panel to let user input function parameter or just use default value"""
     fname = func.__name__
     if len(inspect.getfullargspec(func).args) > 0 and inspect.getfullargspec(func).defaults is not None:
-        arg_len = len(inspect.getfullargspec(func).args)
-        def_len = len(inspect.getfullargspec(func).defaults)
-        arg_w_def = zip(inspect.getfullargspec(func).args[arg_len - def_len:],
-                        inspect.getfullargspec(func).defaults)
-        # merge two dict
-        def_arg = dict(arg_w_def)
+        def_arg = function_get_all_arg_with_value(func)
         function_def_arg = {**def_arg, **inputted_arg}
         # panel
         panel = Panel()
