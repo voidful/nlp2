@@ -11,7 +11,7 @@ class Panel:
         if isinstance(v, list):
             inputted = ''
             while inputted not in [str(e) for e in v]:
-                inputted = input(msg + ", input an item in the list " + str(v) + ", [default=" + str(default) + "]: ")
+                inputted = input(msg + ", input an item in the list " + str(v) + ": ")
                 if inputted == '':
                     inputted = str(default)
             self.element_list.append(inputted)
