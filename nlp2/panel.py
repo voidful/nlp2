@@ -1,4 +1,5 @@
 import inspect
+import json
 
 
 class Panel:
@@ -15,6 +16,8 @@ class Panel:
                 inputted = input(msg + ", input an item in the list " + str(v) + def_msg)
                 if inputted == '':
                     inputted = str(default)
+            if v == [True, False] or (v[0].lower == 'true' or v[0].lower == 'false'):
+                inputted = json.loads(str(inputted).lower())
             self.element_list.append(inputted)
         else:
             if isinstance(v, float) and 0 < v < 1:  # probability
