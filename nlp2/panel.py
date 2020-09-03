@@ -21,11 +21,14 @@ class Panel:
             self.element_list.append(inputted)
         else:
             if isinstance(v, float) and 0 < v < 1:  # probability
-                invalue = float(input(msg + " (between 0-1), [default=" + str(default) + "]: ") or v)
+                inputed = input(msg + " (between 0-1), [default=" + str(default) + "]: ")
+                invalue = float(inputed) if inputed and len(inputed.strip()) > 0 else v
             elif isinstance(v, float):  # number
-                invalue = float(input(msg + " (float), [default=" + str(default) + "]: ") or v)
+                inputed = input(msg + " (float), [default=" + str(default) + "]: ")
+                invalue = float(inputed) if inputed and len(inputed.strip()) > 0 else v
             elif isinstance(v, int):  # number
-                invalue = int(input(msg + " (number), [default=" + str(default) + "]: ") or v)
+                inputed = input(msg + " (number), [default=" + str(default) + "]: ")
+                invalue = int(inputed) if inputed and len(inputed.strip()) > 0 else v
             else:
                 invalue = input(msg + ", [default=" + str(default) + "]: ")
             self.element_list.append(invalue)
