@@ -5,7 +5,7 @@ import sys
 import urllib.request
 
 
-def get_folders_form_dir(root, match=""):
+def get_folders_from_dir(root, match=""):
     for path, subdirs, files in os.walk(root):
         if path != root:
             yield path

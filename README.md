@@ -26,7 +26,7 @@ from nlp2 import *
 
 <h2 id="file">File Handling</h2>    
 
-### get_folders_form_dir(path)
+### get_folders_from_dir(path)
 Arguments  
 - `path(String)` : getting all folders under this path (string)
 
@@ -34,7 +34,7 @@ Returns
 - `path(String)(generator)` : path of folders under arguments path
 Examples  
 ```
-for i in get_folders_form_dir('./corpus/')
+for i in get_folders_from_dir('./corpus/')
     print(i)
 
 './corpus/kdd'
