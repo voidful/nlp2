@@ -6,7 +6,7 @@ from nlp2.vectorize import *
 
 
 class TestVectorize(unittest.TestCase):
-
+    
     @pytest.mark.skip()
     def test_doc2vec_max(self):
         import gensim
