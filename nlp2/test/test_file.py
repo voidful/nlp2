@@ -12,7 +12,7 @@ class TestFile(unittest.TestCase):
             self.assertTrue('c' == get_filename_from_path(path))
 
     def test_get_folders_form_dir(self):
-        for i in get_folders_form_dir(os.path.join(TestFile.DATA_DIR, './test_folder')):
+        for i in get_folders_from_dir(os.path.join(TestFile.DATA_DIR, './test_folder')):
             self.assertTrue(is_dir_exist(i))
 
     def test_get_files_from_dir(self):
