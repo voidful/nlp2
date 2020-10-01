@@ -74,5 +74,14 @@ class TestText(unittest.TestCase):
     def test_half2full(self):
         self.assertEqual(half2full("，,"), "，，")
 
+    def test_sliding_windows(self):
+        a = ["a"] * 125
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 1)]), 125)
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 25)]), 125)
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 50)]), 125)
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 100)]), 125)
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 125)]), 125)
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 200)]), 125)
+
     if __name__ == '__main__':
         unittest.main()

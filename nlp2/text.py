@@ -148,22 +148,11 @@ def half2full(s):
     return ''.join(n)
 
 
-def sliding_windows_larger_step(a, slide=128):
-    for i in range(math.ceil(len(a) / slide) + 1):
-        move = int(i * slide / 2)
-        if len(a[move:move + slide]) > 0:
-            yield a[move:move + slide]
-
-
 def sliding_windows(a, slide=128):
+    windows_list = []
     for i in range(int(len(a) / slide) + 1):
         if len(a[i * slide:i * slide + slide]) > 0:
-            yield a[i * slide:i * slide + slide]
-
-
-def list_in_windows(list, windows):
-    if windows > len(list):
-        return [list]
-    iter_range = (len(list) - windows + 1)
-    jump = int(iter_range / 2)
-    return [list[x:x + windows] for x in range(0, iter_range, jump)]
+            windows_list.append(a[i * slide:i * slide + slide])
+        if len(a[i * slide - int(slide / 2):i * slide + slide - int(slide / 2)]) > 0:
+            windows_list.append(a[i * slide - int(slide / 2):i * slide + slide - int(slide / 2)])
+    return windows_list

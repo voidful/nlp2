@@ -4,6 +4,27 @@ Tools for NLP using Python
 
 This repertory used to handle file io and string cleaning/parsing
 
+<p align="center">
+    <a href="https://pypi.org/project/nlp2/">
+        <img alt="PyPI" src="https://img.shields.io/pypi/v/nlp2">
+    </a>
+    <a href="https://github.com/voidful/nlp2">
+        <img alt="Download" src="https://img.shields.io/pypi/dm/nlp2">
+    </a>
+    <a href="https://github.com/voidful/nlp2">
+        <img alt="Build" src="https://img.shields.io/github/workflow/status/voidful/nlp2/Python package">
+    </a>
+    <a href="https://github.com/voidful/nlp2">
+        <img alt="Last Commit" src="https://img.shields.io/github/last-commit/voidful/nlp2">
+    </a>
+    <a href="https://www.codefactor.io/repository/github/voidful/nlp2/overview/master">
+        <img src="https://www.codefactor.io/repository/github/voidful/nlp2/badge/master" alt="CodeFactor" />
+    </a>
+    <a href="https://codecov.io/gh/voidful/nlp2">
+      <img src="https://codecov.io/gh/voidful/nlp2/branch/master/graph/badge.svg" />
+    </a>
+</p>
+
 ## Usage
 
 Install:
