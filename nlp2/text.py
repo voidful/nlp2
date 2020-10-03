@@ -150,6 +150,7 @@ def half2full(s):
 
 def sliding_windows(seq, slide=128):
     windows_list = []
+    slide_pos = []
     seq_length = len(seq)
     windows_min_size = min(slide, seq_length)
     for i in range(int(seq_length / slide) + 1):
@@ -158,4 +159,5 @@ def sliding_windows(seq, slide=128):
             start = max(0, end - slide)
             if len(seq[start:end]) >= windows_min_size and seq[start:end] not in windows_list: # avoid adding same list repeatedly
                 windows_list.append(seq[start:end])
-    return windows_list
+                slide_pos.append([start, end])
+    return windows_list, slide_pos

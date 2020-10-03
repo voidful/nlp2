@@ -76,17 +76,17 @@ class TestText(unittest.TestCase):
 
     def test_sliding_windows(self):
         a = [i for i in range(125)]
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 1)]), 125)
-        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 25)]), 125)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 50)]), 200)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 100)]), 200)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)]), 125)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)]), 125)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 1)[0]]), 125)
+        self.assertGreaterEqual(sum([len(i) for i in sliding_windows(a, 25)[0]]), 125)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 50)[0]]), 200)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 100)[0]]), 200)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)[0]]), 125)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)[0]]), 125)
         a = ["a"] * 125  # avoid adding same list repeatedly
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 1)]), 1)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 50)]), 50)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)]), 125)
-        self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)]), 125)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 1)[0]]), 1)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 50)[0]]), 50)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)[0]]), 125)
+        self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)[0]]), 125)
 
     if __name__ == '__main__':
         unittest.main()
