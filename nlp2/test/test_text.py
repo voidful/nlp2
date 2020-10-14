@@ -43,6 +43,7 @@ class TestText(unittest.TestCase):
     def test_split_sentence_to_array(self):
         self.assertEqual(split_sentence_to_array('你好 are  u 可以', True), ['你好', 'are', 'u', '可以'])
         self.assertEqual(split_sentence_to_array('你好 are  u 可以'), ['你', '好', 'are', 'u', '可', '以'])
+        self.assertEqual(split_sentence_to_array('傑弗里·德維爾阿杜安'), ['傑', '弗', '里', '·', '德', '維', '爾', '阿', '杜', '安'])
 
     def test_join_words_array_to_sentence(self):
         self.assertEqual(join_words_to_sentence(['你好', 'are', "可以"]), "你好are可以")
