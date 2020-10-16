@@ -93,5 +93,6 @@ class TestText(unittest.TestCase):
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)[0]]), 125)
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)[0]]), 125)
 
+
     if __name__ == '__main__':
         unittest.main()
