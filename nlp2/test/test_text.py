@@ -47,7 +47,9 @@ class TestText(unittest.TestCase):
         self.assertEqual(split_sentence_to_array("威廉•布萊克•里奇蒙爵士"),
                          ['威', '廉', '•', '布', '萊', '克', '•', '里', '奇', '蒙', '爵', '士'])
         self.assertEqual(split_sentence_to_array("35°"),
-                         ['35', '°'])
+                         ['3', '5', '°'])
+        self.assertEqual(split_sentence_to_array("尼爾斯•波耳"),
+                         ['尼', '爾', '斯', '•', '波', '耳'])
 
     def test_join_words_array_to_sentence(self):
         self.assertEqual(join_words_to_sentence(['你好', 'are', "可以"]), "你好are可以")
@@ -92,7 +94,6 @@ class TestText(unittest.TestCase):
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 50)[0]]), 50)
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)[0]]), 125)
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)[0]]), 125)
-
 
     if __name__ == '__main__':
         unittest.main()

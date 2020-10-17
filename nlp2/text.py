@@ -1,6 +1,6 @@
 import re
 
-punctuations = r"[＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､　、〃〈〉《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏﹑﹔·'℃°•·．﹑︰〈〉─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]"
+punctuations = r"[¥•＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､　、〃〈〉《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏﹑﹔·'℃°•·．﹑︰〈〉─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]"
 httplink = r"(https|http)[:\/0-9a-zA-Z.?=&;]*"
 unused = r":.+:|<br>|\\n|\(\w+\)|\[.+\]"
 
@@ -74,10 +74,11 @@ def split_text_in_all_comb(sentence):
 
 
 def split_sentence_to_array(sentence, merge_non_eng=False):
+    sentence = " ".join(sentence.split())
     if merge_non_eng:
-        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]+" + "|" + punctuations
+        regex = r"[0-9]|[a-zA-Z]+\'*[a-z]*|[\w]+|[^ ]"
     else:
-        regex = r"[0-9]+|[a-zA-Z]+\'*[a-z]*|[\w]" + "|" + punctuations
+        regex = r"[0-9]|[a-zA-Z]+\'*[a-z]*|[\w]|[^ ]"
     path = re.findall(regex, sentence, re.UNICODE)
     return path
 
@@ -157,7 +158,8 @@ def sliding_windows(seq, slide=128, append_seq=[]):
                     min(i * slide + slide - int(slide / 2), seq_length)]:
             start = max(0, end - slide)
             slide_seq = seq[start:end] + append_seq
-            if len(slide_seq) >= windows_min_size and slide_seq not in windows_list:  # avoid adding same list repeatedly
+            if len(
+                    slide_seq) >= windows_min_size and slide_seq not in windows_list:  # avoid adding same list repeatedly
                 windows_list.append(slide_seq)
                 slide_pos.append([start, end])
     return windows_list, slide_pos
