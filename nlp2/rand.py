@@ -2,13 +2,19 @@ import os
 import random
 import time
 from random import sample, randint, uniform
-import numpy
 
 
 def set_seed(seed):
     os.environ['PYTHONHASHSEED'] = str(seed)
     random.seed(seed)
     try:
+        import numpy
+        numpy.random.seed(seed)
+    except:
+        pass
+
+    try:
+        import numpy
         numpy.random.seed(seed)
         import torch
         torch.manual_seed(seed)
