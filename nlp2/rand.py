@@ -1,5 +1,24 @@
+import os
+import random
 import time
 from random import sample, randint, uniform
+import numpy
+
+
+def set_seed(seed):
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    random.seed(seed)
+    try:
+        numpy.random.seed(seed)
+        import torch
+        torch.manual_seed(seed)
+        torch.backends.cudnn.benchmark = False
+        torch.backends.cudnn.deterministic = True
+        torch.cuda.manual_seed(seed)
+        if torch.cuda.is_available() > 0:
+            torch.cuda.manual_seed_all(seed)
+    except:
+        pass
 
 
 def _checkInt(l):

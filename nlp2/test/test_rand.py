@@ -18,6 +18,25 @@ class TestRandom(unittest.TestCase):
         self.assertEqual(random_value_in_array_form([3.0, 3.0]), 3)
         self.assertEqual(random_value_in_array_form(['A', 'A']), 'A')
 
+    def test_seed(self):
+        import numpy as np
+        print(np.random.random(10))
+        set_seed(100)
+        seedA = np.random.rand(10)
+        print(seedA)
+        set_seed(100)
+        seedB = np.random.rand(10)
+        print(seedB)
+        self.assertTrue((seedA == seedB).all())
+
+        import torch
+        set_seed(100)
+        seqA = torch.rand(2, 3)
+        set_seed(100)
+        seqB = torch.rand(2, 3)
+        self.assertTrue(torch.all(seqA.eq(seqB)).data.item())
+        self.assertFalse(torch.all(seqA.gt(seqB)).data.item())
+
 
 if __name__ == '__main__':
     unittest.main()
