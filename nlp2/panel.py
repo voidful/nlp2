@@ -42,9 +42,7 @@ class Panel:
 
 def function_get_all_arg(func):
     if len(inspect.getfullargspec(func).args) > 0:
-        arg_len = len(inspect.getfullargspec(func).args)
-        def_len = len(inspect.getfullargspec(func).defaults)
-        return inspect.getfullargspec(func).args[arg_len - def_len:]
+        return inspect.getfullargspec(func).args
     else:
         return []
 
