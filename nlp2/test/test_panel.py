@@ -62,7 +62,7 @@ class TestPanel(unittest.TestCase):
 
         b = B()
         missing = function_check_missing_arg(b.a, {'c': "a"})
-        self.assertEqual(missing, [])
+        self.assertEqual(missing, ['self'])
         wrong = function_check_wrong_arg(b.a, {'c': "a"})
         self.assertEqual(wrong, [])
 
