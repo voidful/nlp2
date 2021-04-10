@@ -35,6 +35,14 @@ class TestPanel(unittest.TestCase):
         argument = function_argument_panel(a, ignore_empty=True)
         self.assertEqual(argument['input'], '')
 
+    def test_function_sep_suit_arg(self):
+        def a(c="a"):
+            pass
+
+        suit_argument, others_argument = function_sep_suit_arg(a, {"c": "a", "b": "d"})
+        self.assertEqual(suit_argument, {'c': "a"})
+        self.assertEqual(others_argument, {'b': "d"})
+
     def test_Default(self):
         def a(c="a"):
             pass
@@ -62,7 +70,7 @@ class TestPanel(unittest.TestCase):
 
         b = B()
         missing = function_check_missing_arg(b.a, {'c': "a"})
-        self.assertEqual(missing, ['self'])
+        self.assertEqual(missing, [])
         wrong = function_check_wrong_arg(b.a, {'c': "a"})
         self.assertEqual(wrong, [])
 

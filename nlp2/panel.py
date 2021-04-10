@@ -41,11 +41,12 @@ class Panel:
 
 
 def function_get_all_arg(func):
+    funt_args = []
     if len(inspect.getfullargspec(func).args) > 0:
-        return inspect.getfullargspec(func).args
-    else:
-        return []
-
+        funt_args.extend(inspect.getfullargspec(func).args)
+    if len(inspect.getfullargspec(func).kwonlyargs) > 0:
+        funt_args.extend(inspect.getfullargspec(func).kwonlyargs)
+    return funt_args
 
 def function_get_all_arg_with_value(func):
     if len(inspect.getfullargspec(func).args) > 0:
@@ -65,7 +66,19 @@ def function_check_wrong_arg(func, input_arg):
 
 def function_check_missing_arg(func, input_arg):
     all_arg = function_get_all_arg(func)
-    return [arg for arg in all_arg if arg not in input_arg]
+    return [arg for arg in all_arg if arg not in input_arg and arg != 'self']
+
+
+def function_sep_suit_arg(func, input_arg):
+    suit_arg = input_arg.copy()
+    oth_arg = input_arg.copy()
+    all_arg = function_get_all_arg(func)
+    for k, v in list(suit_arg.items()):
+        if k not in all_arg:
+            suit_arg.pop(k)
+        else:
+            oth_arg.pop(k)
+    return suit_arg, oth_arg
 
 
 def function_argument_panel(func, inputted_arg={}, disable_input_panel=False, ignore_empty=False,
