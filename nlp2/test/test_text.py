@@ -50,6 +50,8 @@ class TestText(unittest.TestCase):
                          ['3', '5', '°'])
         self.assertEqual(split_sentence_to_array("尼爾斯•波耳"),
                          ['尼', '爾', '斯', '•', '波', '耳'])
+        self.assertEqual(split_sentence_to_array("i'm fine"),
+                         ['i', '\'', 'm', 'fine'])
 
     def test_join_words_array_to_sentence(self):
         self.assertEqual(join_words_to_sentence(['你好', 'are', "可以"]), "你好are可以")

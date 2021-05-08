@@ -74,7 +74,8 @@ def split_text_in_all_comb(sentence):
 
 
 def split_sentence_to_array(sentence, merge_non_eng=False):
-    sentence = " ".join(sentence.split())
+    sentence = "".join(
+        (char if char.isalpha() or char == " " else " " + char + " ") for char in sentence)  # separate punctuation
     if merge_non_eng:
         regex = r"[0-9]|[a-zA-Z]+\'*[a-z]*|[\w]+|[^ ]"
     else:
