@@ -95,18 +95,14 @@ def download_file(url, outdir):
     return outdir + outfile
 
 
-def read_csv(filepath, generator=False):
+def read_csv(filepath):
     sniffer = csv.Sniffer()
     with open(filepath, encoding='utf8') as f:
         line = f.readline()
         dialect = sniffer.sniff(line)
         f.seek(0)
         cf = csv.reader(f, delimiter=dialect.delimiter)
-        if generator:
-            for i in cf:
-                yield i
-        else:
-            return list(cf)
+        return list(cf)
 
 
 def write_csv(csv_rows, loc):

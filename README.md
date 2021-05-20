@@ -248,7 +248,6 @@ print(i)
 Arguments
 
 - `filepath(String)` : csv file path
-- `generator(bool)` : retrun generator or not Returns
 
 - `list` : csv rows
 
