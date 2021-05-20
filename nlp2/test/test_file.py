@@ -66,19 +66,17 @@ class TestFile(unittest.TestCase):
             'https://dumps.wikimedia.org/abc/latest/', os.path.join(TestFile.DATA_DIR, './test_folder/'))
         self.assertEqual(i, "File not found")
 
-    def test_write_csv(self):
+    def test_write_read_csv(self):
         write_csv(["sent", "hi"], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))
         self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.csv')))
 
-    def test_csv_read(self):
         i = read_csv('./test_folder/test.csv')
         self.assertTrue(isinstance(list(i), list))
 
-    def test_write_json(self):
+    def test_write_read_json(self):
         write_json({"sent": "hi"}, os.path.join(TestFile.DATA_DIR, './test_folder/test.json'))
         self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.json')))
 
-    def test_read_json(self):
         j = read_json(os.path.join(TestFile.DATA_DIR, './test_folder/test.json'))
         self.assertEqual(j, {"sent": "hi"})
 
