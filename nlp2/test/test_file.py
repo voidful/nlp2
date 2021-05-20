@@ -66,7 +66,7 @@ class TestFile(unittest.TestCase):
             'https://dumps.wikimedia.org/abc/latest/', os.path.join(TestFile.DATA_DIR, './test_folder/'))
         self.assertEqual(i, "File not found")
 
-    def test_write_json(self):
+    def test_write_csv(self):
         write_csv(["sent", "hi"], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))
         self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.csv')))
 
