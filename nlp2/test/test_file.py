@@ -20,18 +20,24 @@ class TestFile(unittest.TestCase):
             self.assertTrue(is_file_exist(i))
 
     def test_read_dir_files_yield_lines(self):
-        self.assertCountEqual(list(read_dir_files_yield_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/'))), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
-        self.assertCountEqual(list(read_dir_files_yield_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text'))), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(list(read_dir_files_yield_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/'))),
+                              ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(list(read_dir_files_yield_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text'))),
+                              ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
 
     def test_read_dir_files_into_lines(self):
-        self.assertCountEqual(read_dir_files_into_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/')), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
-        self.assertCountEqual(read_dir_files_into_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text')), ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(read_dir_files_into_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/')),
+                              ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
+        self.assertCountEqual(read_dir_files_into_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text')),
+                              ['abcabcabc', '天氣晴朗', '多雲', 'cbcbcb'])
 
     def test_read_files_yield_lines(self):
-        self.assertEqual(list(read_files_yield_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/file1'))), ['abcabcabc', '天氣晴朗', '多雲'])
+        self.assertEqual(list(read_files_yield_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/file1'))),
+                         ['abcabcabc', '天氣晴朗', '多雲'])
 
     def test_read_files_into_lines(self):
-        self.assertEqual(read_files_into_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/file1')), ['abcabcabc', '天氣晴朗', '多雲'])
+        self.assertEqual(read_files_into_lines(os.path.join(TestFile.DATA_DIR, './test_folder/text/file1')),
+                         ['abcabcabc', '天氣晴朗', '多雲'])
 
     def test_create_new_dir_always(self):
         create_new_dir_always(os.path.join(TestFile.DATA_DIR, './test_folder/new'))
@@ -40,10 +46,6 @@ class TestFile(unittest.TestCase):
     def test_get_dir_with_notexist_create(self):
         get_dir_with_notexist_create(os.path.join(TestFile.DATA_DIR, './test_folder/new2'))
         self.assertTrue(is_dir_exist(os.path.join(TestFile.DATA_DIR, './test_folder/new2')))
-
-    def test_write_json_to_file(self):
-        write_json_to_file({"sent": "hi"}, os.path.join(TestFile.DATA_DIR, './test_folder/test.json'))
-        self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.json')))
 
     def test_is_file_exist(self):
         self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/text/file1')))
@@ -63,6 +65,22 @@ class TestFile(unittest.TestCase):
         i = download_file(
             'https://dumps.wikimedia.org/abc/latest/', os.path.join(TestFile.DATA_DIR, './test_folder/'))
         self.assertEqual(i, "File not found")
+
+    def test_write_json(self):
+        write_csv(["sent", "hi"], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))
+        self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.csv')))
+
+    def test_csv_read(self):
+        i = read_csv('./test_folder/test.csv')
+        self.assertTrue(isinstance(list(i), list))
+
+    def test_write_json(self):
+        write_json({"sent": "hi"}, os.path.join(TestFile.DATA_DIR, './test_folder/test.json'))
+        self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.json')))
+
+    def test_read_json(self):
+        j = read_json(os.path.join(TestFile.DATA_DIR, './test_folder/test.json'))
+        self.assertEqual(j, {"sent": "hi"})
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@ import os
 import re
 import sys
 import urllib.request
+import csv
 
 
 def get_folders_from_dir(root, match=""):
@@ -69,12 +70,6 @@ def get_dir_with_notexist_create(dirPath):
     return dirPath
 
 
-def write_json_to_file(json_str, loc):
-    with open(loc, 'w', encoding='utf-8') as outfile:
-        json.dump(json_str, outfile, indent=4, ensure_ascii=False)
-    return loc
-
-
 def is_file_exist(file_loc):
     return os.path.isfile(file_loc)
 
@@ -98,3 +93,35 @@ def download_file(url, outdir):
             return "File not found"
     sys.stdout.write("\n")
     return outdir + outfile
+
+
+def read_csv(filepath, generator=False):
+    sniffer = csv.Sniffer()
+    with open(filepath, encoding='utf8') as f:
+        line = f.readline()
+        dialect = sniffer.sniff(line)
+        f.seek(0)
+        cf = csv.reader(f, delimiter=dialect.delimiter)
+        if generator:
+            for i in cf:
+                yield i
+        else:
+            return list(cf)
+
+
+def write_csv(csv_rows, loc):
+    with open(loc, 'w', encoding='utf8') as outfile:
+        writer = csv.writer(outfile)
+        writer.writerows(csv_rows)
+
+
+def read_json(filepath):
+    with open(filepath, encoding='utf-8') as f:
+        data = json.load(f)
+        return data
+
+
+def write_json(json_str, loc):
+    with open(loc, 'w', encoding='utf-8') as outfile:
+        json.dump(json_str, outfile, indent=4, ensure_ascii=False)
+    return loc
