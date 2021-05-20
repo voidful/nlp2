@@ -67,11 +67,11 @@ class TestFile(unittest.TestCase):
         self.assertEqual(i, "File not found")
 
     def test_write_csv(self):
-        write_csv(["sent", "hi"], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))
+        write_csv([["sent", "hi"]], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))
         self.assertTrue(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.csv')))
 
     def test_csv_read(self):
-        i = read_csv(is_file_exist(os.path.join(TestFile.DATA_DIR, './test_folder/test.csv')))
+        i = read_csv(os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))
         self.assertTrue(isinstance(list(i), list))
 
     def test_write_json(self):
