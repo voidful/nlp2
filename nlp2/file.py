@@ -109,7 +109,10 @@ def read_csv(filepath, delimiter=None):
 
 def write_csv(csv_rows, loc, delimiter=None):
     with open(loc, 'w', encoding='utf8') as outfile:
-        writer = csv.writer(outfile, delimiter=delimiter)
+        if delimiter is not None:
+            writer = csv.writer(outfile, delimiter=delimiter)
+        else:
+            writer = csv.writer(outfile)
         writer.writerows(csv_rows)
 
 
