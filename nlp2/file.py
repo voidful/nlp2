@@ -107,9 +107,9 @@ def read_csv(filepath, delimiter=None):
         return list(cf)
 
 
-def write_csv(csv_rows, loc):
+def write_csv(csv_rows, loc, delimiter=None):
     with open(loc, 'w', encoding='utf8') as outfile:
-        writer = csv.writer(outfile)
+        writer = csv.writer(outfile, delimiter=delimiter)
         writer.writerows(csv_rows)
 
 
