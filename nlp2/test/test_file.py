@@ -64,7 +64,7 @@ class TestFile(unittest.TestCase):
     def test_download_file_not_found(self):
         i = download_file(
             'https://dumps.wikimedia.org/abc/latest/', os.path.join(TestFile.DATA_DIR, './test_folder/'))
-        self.assertEqual(i, "File not found")
+        self.assertRaises(Exception, i)
 
     def test_write_csv(self):
         write_csv([["sent", "hi"]], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))

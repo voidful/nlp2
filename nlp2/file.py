@@ -86,13 +86,14 @@ def _progress(block_num, block_size, total_size):
 def download_file(url, outdir):
     outdir = get_dir_with_notexist_create(outdir)
     outfile = url.split('/')[-1]
-    if not is_file_exist(outdir + outfile):
+    write_path = os.path.join(outdir, outfile)
+    if not is_file_exist(write_path):
         try:
-            urllib.request.urlretrieve(url, outdir + outfile, _progress)
-        except:
-            return "File not found"
-    sys.stdout.write("\n")
-    return outdir + outfile
+            urllib.request.urlretrieve(url, write_path, _progress)
+        except Exception as e:
+            print("Except:", e)
+    print("\n")
+    return write_path
 
 
 def read_csv(filepath, delimiter=None):
