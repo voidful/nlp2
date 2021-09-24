@@ -85,7 +85,9 @@ def split_sentence_to_array(sentence, merge_non_eng=False):
 
 
 def join_words_to_sentence(array):
-    return ''.join([subPath + (' ' if is_all_english(str(array)) else '') for subPath in array]).strip()
+    return ''.join(
+        [(' ' if i > 0 and is_all_english(str(subPath)) and not is_all_english(str(array[i - 1])) else '') + subPath + (
+            ' ' if is_all_english(str(subPath)) else '') for i, subPath in enumerate(array)]).strip()
 
 
 def passage_into_chunk(text, length):
@@ -105,7 +107,7 @@ def passage_into_chunk(text, length):
 def is_all_english(s):
     try:
         s.encode(encoding='utf-8').decode('ascii')
-    except UnicodeDecodeError:
+    except:
         return False
     else:
         return True

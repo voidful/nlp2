@@ -54,7 +54,8 @@ class TestText(unittest.TestCase):
                          ['i', '\'', 'm', 'fine'])
 
     def test_join_words_array_to_sentence(self):
-        self.assertEqual(join_words_to_sentence(['你好', 'are', "可以"]), "你好are可以")
+        self.assertEqual(join_words_to_sentence(['你', 'ok', "嗎"]), "你 ok 嗎")
+        self.assertEqual(join_words_to_sentence(['I', 'am', "可以"]), "I am 可以")
 
     def test_passage_into_chunk(self):
         self.assertEqual(passage_into_chunk("xxxxxxxx\noo\nyyzz\ngggggg\nkkkk\n", 10),
