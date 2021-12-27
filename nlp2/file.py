@@ -96,6 +96,20 @@ def download_file(url, outdir):
     return write_path
 
 
+def read_csv_row(fpath, chunksize=10000):
+    from tqdm import tqdm
+    import pandas as pd
+    with open(fpath, encoding='utf8') as csvfile:
+        it = pd.read_csv(csvfile, chunksize=chunksize, iterator=True)
+        pbar = tqdm(it)
+        try:
+            for i, chunkdf in enumerate(pbar):
+                for _, row in chunkdf.iterrows():
+                    yield row
+        finally:
+            pbar.close()
+
+
 def read_csv(filepath, delimiter=None):
     sniffer = csv.Sniffer()
     with open(filepath, encoding='utf8') as f:
