@@ -1,4 +1,5 @@
 import re
+from itertools import combinations
 
 punctuations = r"[¥•＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､　、〃〈〉《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏﹑﹔·'℃°•·．﹑︰〈〉─《﹖﹣﹂﹁﹔！？｡。＂＃＄％＆＇（）＊＋，﹐－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏.．!\"#$%&()*+,\-.\:;<=>?@\[\]\\\/^_`{|}~]"
 httplink = r"(https|http)[:\/0-9a-zA-Z.?=&;]*"
@@ -166,3 +167,26 @@ def sliding_windows(seq, slide=128, append_seq=[]):
                 windows_list.append(slide_seq)
                 slide_pos.append([start, end])
     return windows_list, slide_pos
+
+
+def jaccard_similarity(list1, list2):
+    s1 = set(list1)
+    s2 = set(list2)
+    return len(s1.intersection(s2)) / len(s1.union(s2))
+
+
+def is_jaccard_similar(s, t, threshold=0.5):
+    return jaccard_similarity(s, t) > threshold
+
+
+def filter_jaccard_similar_text_from_list(lst, max_return, threshold=0.5):
+    while True:
+        filtered = False
+        for s, t in combinations(lst, 2):
+            if is_jaccard_similar(s[0], t[0], threshold) and len(lst) - 1 >= max_return:
+                lst.remove(t)
+                filtered = True
+                break
+        if not filtered:
+            break
+    return lst

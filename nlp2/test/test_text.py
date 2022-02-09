@@ -98,5 +98,9 @@ class TestText(unittest.TestCase):
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 125)[0]]), 125)
         self.assertEqual(sum([len(i) for i in sliding_windows(a, 200)[0]]), 125)
 
+    def test_filter_jaccard_similar_text_from_list(self):
+        self.assertEqual(len(filter_jaccard_similar_text_from_list(["abcd", "abc"], 1)), 1)
+        self.assertEqual(len(filter_jaccard_similar_text_from_list(["ab", "efc"], 1)), 2)
+
     if __name__ == '__main__':
         unittest.main()

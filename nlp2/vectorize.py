@@ -33,7 +33,7 @@ def doc2vec_concat(pretrained_emb, emb_size, context):
 
 def doc2vec_hier(pretrained_emb, emb_size, context, windows):
     arr_list = []
-    for i in list_in_windows(context, windows):
+    for i in sliding_windows(context, windows):
         try:
             arr_list.append(doc2vec_aver(pretrained_emb, emb_size, i))
         except Exception as e:
