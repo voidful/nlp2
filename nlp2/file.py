@@ -1,9 +1,29 @@
+import csv
 import json
 import os
+import platform
 import re
 import sys
 import urllib.request
-import csv
+from pathlib import Path
+
+
+def creation_date(path_to_file):
+    """
+    Try to get the date that a file was created, falling back to when it was
+    last modified if that isn't possible.
+    See http://stackoverflow.com/a/39501288/1709587 for explanation.
+    """
+    if platform.system() == 'Windows':
+        return os.path.getctime(path_to_file)
+    else:
+        stat = os.stat(path_to_file)
+        try:
+            return stat.st_birthtime
+        except AttributeError:
+            # We're probably on Linux. No easy way to get creation dates here,
+            # so we'll settle for when its content was last modified.
+            return stat.st_mtime
 
 
 def get_folders_from_dir(root, match=""):
@@ -19,11 +39,15 @@ def get_filename_from_path(path):
         return basename.group(0)
 
 
+def get_file_from_dir_by_create_time(dir, match=""):
+    return [str(i) for i in sorted(Path(dir).iterdir(), key=creation_date, reverse=True) if match in str(i)]
+
+
 def get_files_from_dir(root, match=""):
     for path, subdirs, files in os.walk(root):
         for file in files:
             if len(match) > 0:
-                if file in match:
+                if match in file:
                     yield path + file
             else:
                 yield os.path.join(path, file)
