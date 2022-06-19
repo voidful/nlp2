@@ -5,6 +5,7 @@ import platform
 import re
 import sys
 import urllib.request
+from datetime import datetime
 from pathlib import Path
 
 
@@ -43,14 +44,21 @@ def get_file_from_dir_by_create_time(dir, match=""):
     return [str(i) for i in sorted(Path(dir).iterdir(), key=creation_date, reverse=True) if match in str(i)]
 
 
-def get_files_from_dir(root, match=""):
+def get_files_from_dir(root, match="", creation_date_after='', creation_date_x_days_ago=0):
     for path, subdirs, files in os.walk(root):
         for file in files:
+            if len(creation_date_after) > 0 or creation_date_x_days_ago > 0:
+                creation_date = datetime.fromtimestamp(creation_date(os.path.join(path, file)))
+                if creation_date_x_days_ago > 0:
+                    after_date = datetime.fromordinal(datetime.today().toordinal() - creation_date_x_days_ago)
+                else:
+                    after_date = datetime.fromisoformat(creation_date_after)
+                if not creation_date > after_date:
+                    continue
             if len(match) > 0:
-                if match in file:
-                    yield path + file
-            else:
-                yield os.path.join(path, file)
+                if match not in file:
+                    continue
+            yield os.path.join(path, file)
 
 
 def read_dir_files_yield_lines(dir_path):
