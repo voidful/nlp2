@@ -48,12 +48,12 @@ def get_files_from_dir(root, match="", creation_date_after='', creation_date_x_d
     for path, subdirs, files in os.walk(root):
         for file in files:
             if len(creation_date_after) > 0 or creation_date_x_days_ago > 0:
-                creation_date = datetime.fromtimestamp(creation_date(os.path.join(path, file)))
+                create_date = datetime.fromtimestamp(creation_date(os.path.join(path, file)))
                 if creation_date_x_days_ago > 0:
                     after_date = datetime.fromordinal(datetime.today().toordinal() - creation_date_x_days_ago)
                 else:
                     after_date = datetime.fromisoformat(creation_date_after)
-                if not creation_date > after_date:
+                if not create_date > after_date:
                     continue
             if len(match) > 0:
                 if match not in file:
