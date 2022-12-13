@@ -1,4 +1,5 @@
 import unittest
+
 from nlp2.file import *
 
 
@@ -60,11 +61,6 @@ class TestFile(unittest.TestCase):
             'https://raw.githubusercontent.com/voidful/voidful_blog/master/assets/post_src/nninmath_3/img1',
             os.path.join(TestFile.DATA_DIR, './test_folder/'))
         self.assertEqual(i, os.path.join(TestFile.DATA_DIR, './test_folder/img1'))
-
-    def test_download_file_not_found(self):
-        i = download_file(
-            'https://dumps.wikimedia.org/abc/latest/', os.path.join(TestFile.DATA_DIR, './test_folder/'))
-        self.assertRaises(Exception, i)
 
     def test_write_csv(self):
         write_csv([["sent", "hi"]], os.path.join(TestFile.DATA_DIR, './test_folder/test.csv'))

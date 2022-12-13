@@ -46,17 +46,19 @@ def get_file_from_dir_by_create_time(dir, match=""):
 
 def get_files_from_dir(root, match="", creation_date_after='', creation_date_x_days_ago=0):
     for path, subdirs, files in os.walk(root):
-        for file in files:
+        for file in sorted(files, reverse=True):
+            filepath = os.path.join(path, file)
+            if not is_file_exist(filepath):
+                continue
+            if len(match) > 0 and match not in file:
+                continue
             if len(creation_date_after) > 0 or creation_date_x_days_ago > 0:
-                create_date = datetime.fromtimestamp(creation_date(os.path.join(path, file)))
+                create_date = datetime.fromtimestamp(os.path.getatime(filepath))
                 if creation_date_x_days_ago > 0:
-                    after_date = datetime.fromordinal(datetime.today().toordinal() - creation_date_x_days_ago)
+                    in_range_date = datetime.fromordinal(datetime.today().toordinal() - creation_date_x_days_ago)
                 else:
-                    after_date = datetime.fromisoformat(creation_date_after)
-                if not create_date > after_date:
-                    continue
-            if len(match) > 0:
-                if match not in file:
+                    in_range_date = datetime.fromisoformat(creation_date_after)
+                if in_range_date > create_date:
                     continue
             yield os.path.join(path, file)
 
@@ -115,15 +117,20 @@ def _progress(block_num, block_size, total_size):
     sys.stdout.flush()
 
 
+def recu_down(url, filename):  # recurrent download with ContentTooShortError
+    try:
+        urllib.request.urlretrieve(url, filename, _progress)
+    except urllib.error.ContentTooShortError:
+        print('Network conditions is not good. Reloading...')
+        recu_down(url, filename)
+
+
 def download_file(url, outdir):
     outdir = get_dir_with_notexist_create(outdir)
     outfile = url.split('/')[-1]
     write_path = os.path.join(outdir, outfile)
     if not is_file_exist(write_path):
-        try:
-            urllib.request.urlretrieve(url, write_path, _progress)
-        except Exception as e:
-            print("Except:", e)
+        recu_down(url, write_path)
     print("\n")
     return write_path
 
