@@ -125,9 +125,12 @@ def recu_down(url, filename):  # recurrent download with ContentTooShortError
         recu_down(url, filename)
 
 
-def download_file(url, outdir):
+def download_file(url, outdir, new_filename=None):
     outdir = get_dir_with_notexist_create(outdir)
-    outfile = url.split('/')[-1]
+    if new_filename is None:
+        outfile = url.split('/')[-1]
+    else:
+        outfile = new_filename
     write_path = os.path.join(outdir, outfile)
     if not is_file_exist(write_path):
         recu_down(url, write_path)
