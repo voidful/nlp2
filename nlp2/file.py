@@ -40,6 +40,16 @@ def get_filename_from_path(path):
         return basename.group(0)
 
 
+def rm_path_content(path):
+    import shutil
+    try:
+        shutil.rmtree(path)
+        return True
+    except OSError as e:
+        print(f"Error: {e.filename} - {e.strerror}.")
+        return False
+
+
 def get_file_from_dir_by_create_time(dir, match=""):
     return [str(i) for i in sorted(Path(dir).iterdir(), key=creation_date, reverse=True) if match in str(i)]
 
