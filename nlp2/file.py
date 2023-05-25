@@ -187,3 +187,15 @@ def write_json(json_str, loc):
     with open(loc, 'w', encoding='utf-8') as outfile:
         json.dump(json_str, outfile, indent=4, ensure_ascii=False)
     return loc
+
+
+def write_jsonl(data, file_path):
+    with open(file_path, 'w') as f:
+        for item in data:
+            f.write(json.dumps(item) + "\n")
+
+
+def read_jsonl(file_path):
+    with open(file_path, 'r') as f:
+        for line in f:
+            yield json.loads(line)
