@@ -8,6 +8,8 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 
+import numpy as np
+
 
 def creation_date(path_to_file):
     """
@@ -193,9 +195,16 @@ def read_json(filepath):
         return data
 
 
+class JSONEncoderWithNumpy(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.int64):
+            return int(obj)
+        return json.JSONEncoder.default(self, obj)
+
+
 def write_json(json_str, loc):
     with open(loc, 'w', encoding='utf-8') as outfile:
-        json.dump(json_str, outfile, indent=4, ensure_ascii=False)
+        json.dump(json_str, outfile, indent=4, ensure_ascii=False, cls=JSONEncoderWithNumpy)
     return loc
 
 
