@@ -204,14 +204,14 @@ class JSONEncoderWithNumpy(json.JSONEncoder):
 
 def write_json(json_str, loc):
     with open(loc, 'w', encoding='utf-8') as outfile:
-        json.dump(json_str, outfile, indent=4, ensure_ascii=False, cls=JSONEncoderWithNumpy)
+        json.dump(json_str, outfile, indent=4, sort_keys=False, ensure_ascii=False, cls=JSONEncoderWithNumpy)
     return loc
 
 
 def write_jsonl(data, file_path):
     with open(file_path, 'w') as f:
         for item in data:
-            f.write(json.dumps(item) + "\n")
+            f.write(json.dumps(item, sort_keys=False, ensure_ascii=False) + "\n")
 
 
 def read_jsonl(file_path):
