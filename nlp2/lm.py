@@ -14,7 +14,6 @@ class LMUtil:
                  tokenizer=None,
                  model=None,
                  device=None,
-                 torch_dtype=torch.float16,
                  device_map="auto"):
         if not tokenizer:
             self.tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -25,7 +24,8 @@ class LMUtil:
         else:
             self.device = device
         if not model:
-            self.model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch_dtype,
+            self.model = AutoModelForCausalLM.from_pretrained(model_name,
+                                                              torch_dtype=torch.float16,
                                                               device_map=device_map)
         else:
             self.model = model
