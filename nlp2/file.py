@@ -8,7 +8,7 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 
-import numpy as np
+
 
 
 def creation_date(path_to_file):
@@ -197,6 +197,7 @@ def read_json(filepath):
 
 class JSONEncoderWithNumpy(json.JSONEncoder):
     def default(self, obj):
+        import numpy as np
         if isinstance(obj, np.int64):
             return int(obj)
         return json.JSONEncoder.default(self, obj)
