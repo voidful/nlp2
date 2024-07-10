@@ -9,8 +9,6 @@ from datetime import datetime
 from pathlib import Path
 
 
-
-
 def creation_date(path_to_file):
     """
     Try to get the date that a file was created, falling back to when it was
@@ -125,28 +123,45 @@ def is_dir_exist(file_dir):
 
 
 def _progress(block_num, block_size, total_size):
-    sys.stdout.write('\r>> Downloading %.1f%%' % (float(block_num * block_size) / float(total_size) * 100.0))
+    progress = (block_num * block_size) / total_size * 100.0
+    sys.stdout.write(f'\r>> Downloading {progress:.1f}%')
     sys.stdout.flush()
 
 
-def recu_down(url, filename):  # recurrent download with ContentTooShortError
+def recu_down(url, filename, show_progress):
+    """Recurrent download with handling for ContentTooShortError."""
     try:
-        urllib.request.urlretrieve(url, filename, _progress)
+        if show_progress:
+            urllib.request.urlretrieve(url, filename, _progress)
+        else:
+            urllib.request.urlretrieve(url, filename)
     except urllib.error.ContentTooShortError:
-        print('Network conditions is not good. Reloading...')
-        recu_down(url, filename)
+        print('Network conditions are not good. Reloading...')
+        recu_down(url, filename, show_progress)
 
 
-def download_file(url, outdir, new_filename=None):
+def download_file(url, outdir, new_filename=None, show_progress=False):
+    """
+    Downloads a file from a URL, retrying on network issues.
+
+    Parameters:
+        url (str): The URL of the file to download.
+        outdir (str): The directory where the file will be saved.
+        new_filename (str, optional): The new name for the downloaded file. If None, the original name from the URL is used.
+        show_progress (bool, optional): Whether to show the progress bar. Defaults to False.
+
+    Returns:
+        str: The path to the downloaded file.
+    """
     outdir = get_dir_with_notexist_create(outdir)
-    if new_filename is None:
-        outfile = url.split('/')[-1]
-    else:
-        outfile = new_filename
+    outfile = new_filename if new_filename else url.split('/')[-1]
     write_path = os.path.join(outdir, outfile)
+
     if not is_file_exist(write_path):
-        recu_down(url, write_path)
-    print("\n")
+        recu_down(url, write_path, show_progress)
+
+    if show_progress:
+        print("\n")
     return write_path
 
 
